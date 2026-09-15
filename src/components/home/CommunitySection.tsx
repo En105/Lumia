@@ -3,10 +3,11 @@ import { MessageSquare, Heart, Eye, MessageCircleQuestion, Users, Sparkles, Plus
 import { Discussion } from '../../types';
 
 interface CommunitySectionProps {
-  discussions: Discussion[];
-  onSelectDiscussion: (discussion: Discussion) => void;
-  onViewCommunity: () => void;
-  onOpenCreateDiscussion: () => void;
+  discussions?: Discussion[];
+  onSelectDiscussion?: (discussion: Discussion) => void;
+  onViewCommunity?: () => void;
+  onViewAllDiscussions?: () => void;
+  onOpenCreateDiscussion?: () => void;
   onToggleLikeDiscussion?: (id: string, e: React.MouseEvent) => void;
 }
 
@@ -14,6 +15,7 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({
   discussions = [],
   onSelectDiscussion,
   onViewCommunity,
+  onViewAllDiscussions,
   onOpenCreateDiscussion,
   onToggleLikeDiscussion,
 }) => {
@@ -55,7 +57,7 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
             <button
               id="community-ask-question-cta"
-              onClick={onOpenCreateDiscussion}
+              onClick={() => onOpenCreateDiscussion?.()}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-white bg-[#A85B52] hover:bg-[#91463D] shadow-xs transition-colors"
             >
               <PlusCircle className="w-4 h-4" />
@@ -64,7 +66,10 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({
 
             <button
               id="community-view-forum-cta"
-              onClick={onViewCommunity}
+              onClick={() => {
+                if (onViewCommunity) onViewCommunity();
+                else if (onViewAllDiscussions) onViewAllDiscussions();
+              }}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-[#5C3A34] bg-white border border-[#E8D4CD] hover:bg-[#F9ECE7] transition-colors"
             >
               <Users className="w-4 h-4 text-[#8C5E58]" />
@@ -96,7 +101,7 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({
             <div
               key={disc.id}
               id={`discussion-card-${disc.id}`}
-              onClick={() => onSelectDiscussion(disc)}
+              onClick={() => onSelectDiscussion?.(disc)}
               className="group bg-white p-6 rounded-2xl border border-[#EDE1DB] shadow-xs hover:shadow-md hover:border-[#DFC4BA] transition-all cursor-pointer flex flex-col justify-between"
             >
               <div>

@@ -3,7 +3,7 @@ import { Sparkles, Heart, Mail, MapPin, Phone } from 'lucide-react';
 import { NavPage } from '../types';
 
 interface FooterProps {
-  onNavigate: (page: NavPage) => void;
+  onNavigate?: (page: NavPage) => void;
   onOpenCreateDiscussion?: () => void;
 }
 
@@ -15,7 +15,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
           {/* Col 1 & 2: Brand & Mission */}
           <div className="lg:col-span-2 space-y-4">
             <div 
-              onClick={() => { onNavigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              onClick={() => { onNavigate?.('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="flex items-center gap-3 cursor-pointer group w-fit"
             >
               <div className="w-10 h-10 rounded-full bg-[#483531] flex items-center justify-center border border-[#634B45]">
@@ -59,7 +59,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
             <ul className="space-y-2.5 text-sm text-[#C4B2AD]">
               <li>
                 <button 
-                  onClick={() => { onNavigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Trang chủ
@@ -67,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
               </li>
               <li>
                 <button 
-                  onClick={() => { onNavigate('articles'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('articles'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Bài viết chuyên sâu
@@ -75,7 +75,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
               </li>
               <li>
                 <button 
-                  onClick={() => { onNavigate('skin-knowledge'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('skin-knowledge'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Kiến thức làn da
@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
               </li>
               <li>
                 <button 
-                  onClick={() => { onNavigate('reviews'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('reviews'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Góc review chân thật
@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
             <ul className="space-y-2.5 text-sm text-[#C4B2AD]">
               <li>
                 <button 
-                  onClick={() => { onNavigate('discussions'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('discussions'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Diễn đàn thảo luận
@@ -110,7 +110,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                 <button 
                   onClick={() => {
                     if (onOpenCreateDiscussion) onOpenCreateDiscussion();
-                    else onNavigate('discussions');
+                    else onNavigate?.('discussions');
                   }}
                   className="hover:text-white transition-colors"
                 >
@@ -119,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
               </li>
               <li>
                 <button 
-                  onClick={() => { onNavigate('discussions'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('discussions'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Câu chuyện thành viên
@@ -136,7 +136,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
             <ul className="space-y-2.5 text-sm text-[#C4B2AD]">
               <li>
                 <button 
-                  onClick={() => { onNavigate('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Về chúng tôi
@@ -144,7 +144,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
               </li>
               <li>
                 <button 
-                  onClick={() => { onNavigate('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onClick={() => { onNavigate?.('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
                   Liên hệ

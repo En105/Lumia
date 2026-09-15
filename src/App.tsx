@@ -155,12 +155,15 @@ export default function App() {
           <div className="animate-in fade-in duration-200">
             {/* 1. Hero Banner */}
             <HeroSection
+              onNavigate={navigateTo}
               onExploreArticles={() => navigateTo('articles')}
               onOpenSkinQuiz={() => setIsSkinQuizOpen(true)}
+              onOpenCreateDiscussion={() => setIsCreateDiscussionOpen(true)}
             />
 
             {/* 2. Explore Lumia 4 Pillars */}
             <ExploreLumiaSection
+              onNavigate={navigateTo}
               onSelectPillar={(pillar) => {
                 if (pillar === 'knowledge') navigateTo('articles');
                 else if (pillar === 'reviews') navigateTo('reviews');
@@ -197,6 +200,7 @@ export default function App() {
             <CommunitySection
               discussions={discussions}
               onSelectDiscussion={() => navigateTo('discussions')}
+              onViewCommunity={() => navigateTo('discussions')}
               onViewAllDiscussions={() => navigateTo('discussions')}
               onOpenCreateDiscussion={() => setIsCreateDiscussionOpen(true)}
               onToggleLikeDiscussion={handleToggleLikeDiscussion}

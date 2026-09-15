@@ -3,10 +3,11 @@ import { Microscope, Sparkles, Lightbulb, Users, ArrowUpRight } from 'lucide-rea
 import { NavPage } from '../../types';
 
 interface ExploreLumiaSectionProps {
-  onNavigate: (page: NavPage) => void;
+  onNavigate?: (page: NavPage) => void;
+  onSelectPillar?: (pillar: string) => void;
 }
 
-export const ExploreLumiaSection: React.FC<ExploreLumiaSectionProps> = ({ onNavigate }) => {
+export const ExploreLumiaSection: React.FC<ExploreLumiaSectionProps> = ({ onNavigate, onSelectPillar }) => {
   const pillars = [
     {
       id: 'skin-knowledge',
@@ -75,7 +76,11 @@ export const ExploreLumiaSection: React.FC<ExploreLumiaSectionProps> = ({ onNavi
                 key={item.id}
                 id={`explore-card-${item.id}`}
                 onClick={() => {
-                  onNavigate(item.targetPage);
+                  if (onNavigate) {
+                    onNavigate(item.targetPage);
+                  } else if (onSelectPillar) {
+                    onSelectPillar(item.id);
+                  }
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className={`group p-6 rounded-2xl bg-[#FCFAF8] border border-[#F2E5E0] ${item.borderHover} transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col justify-between`}

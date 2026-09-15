@@ -8,7 +8,7 @@ import { Article, Comment, NavPage } from '../../types';
 interface ArticleDetailPageProps {
   article: Article;
   allArticles: Article[];
-  onNavigate: (page: NavPage) => void;
+  onNavigate?: (page: NavPage) => void;
   onSelectArticle: (article: Article) => void;
   onToggleLikeArticle: (articleId: string, e?: React.MouseEvent) => void;
   isLiked?: boolean;
@@ -74,14 +74,14 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-1.5 text-xs text-[#8C7672] mb-6 overflow-x-auto pb-1">
           <button 
-            onClick={() => onNavigate('home')} 
+            onClick={() => onNavigate?.('home')} 
             className="hover:text-[#341F1A] transition-colors shrink-0"
           >
             Trang chủ
           </button>
           <ChevronRight className="w-3.5 h-3.5 shrink-0" />
           <button 
-            onClick={() => onNavigate('articles')} 
+            onClick={() => onNavigate?.('articles')} 
             className="hover:text-[#341F1A] transition-colors shrink-0"
           >
             Bài viết

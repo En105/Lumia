@@ -3,13 +3,15 @@ import { ArrowRight, MessageSquare, Sparkles, BookOpen, Heart, ShieldCheck, Awar
 import { NavPage } from '../../types';
 
 interface HeroSectionProps {
-  onNavigate: (page: NavPage) => void;
-  onOpenCreateDiscussion: () => void;
-  onOpenSkinQuiz: () => void;
+  onNavigate?: (page: NavPage) => void;
+  onExploreArticles?: () => void;
+  onOpenCreateDiscussion?: () => void;
+  onOpenSkinQuiz?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onNavigate,
+  onExploreArticles,
   onOpenCreateDiscussion,
   onOpenSkinQuiz,
 }) => {
@@ -45,7 +47,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <button
                 id="hero-explore-articles-cta"
                 onClick={() => {
-                  onNavigate('articles');
+                  if (onNavigate) {
+                    onNavigate('articles');
+                  } else if (onExploreArticles) {
+                    onExploreArticles();
+                  }
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white bg-[#A85B52] hover:bg-[#91463D] shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
@@ -57,7 +63,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <button
                 id="hero-join-community-cta"
-                onClick={onOpenCreateDiscussion}
+                onClick={() => {
+                  if (onOpenCreateDiscussion) {
+                    onOpenCreateDiscussion();
+                  } else if (onNavigate) {
+                    onNavigate('discussions');
+                  }
+                }}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-[#5B3933] bg-[#FCFAF8] hover:bg-[#F6E9E4] border border-[#E8D4CE] transition-all duration-200 shadow-xs hover:border-[#D9BDB5]"
               >
                 <MessageSquare className="w-4 h-4 text-[#8C5E58]" />
@@ -67,7 +79,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Mini Skin Test Banner */}
             <div 
-              onClick={onOpenSkinQuiz}
+              onClick={() => {
+                if (onOpenSkinQuiz) onOpenSkinQuiz();
+                else if (onNavigate) onNavigate('skin-knowledge');
+              }}
               className="pt-3 flex items-center gap-3 text-xs text-[#6B4E47] cursor-pointer group w-fit"
             >
               <span className="flex h-2 w-2 relative">

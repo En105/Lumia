@@ -3,7 +3,7 @@ import { Sparkles, Heart, ShieldCheck, Users, BookOpen, Compass, CheckCircle2 } 
 import { NavPage } from '../../types';
 
 interface AboutPageProps {
-  onNavigate: (page: NavPage) => void;
+  onNavigate?: (page: NavPage) => void;
 }
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
@@ -178,7 +178,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
 
           <div className="text-center pt-2">
             <button
-              onClick={() => { onNavigate('discussions'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              onClick={() => { onNavigate?.('discussions'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-semibold text-white bg-[#A85B52] hover:bg-[#91463D] shadow-xs transition-colors"
             >
               <span>Tham gia cộng đồng Lumia ngay</span>
