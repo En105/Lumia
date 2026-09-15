@@ -1,0 +1,6 @@
+{
+  "name": "Lumia - Mỹ Phẩm & Chăm Sóc Da",
+  "description": "Chạm vào vẻ đẹp, hiểu về làn da. Blog và cộng đồng chia sẻ kiến thức chăm sóc da, review mỹ phẩm chân thật và xu hướng làm đẹp hiện đại.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
