@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Heart, Mail, MapPin, Phone } from 'lucide-react';
+import { Sparkles, Heart, Mail, MapPin, Phone, ShieldAlert, BookOpen } from 'lucide-react';
 import { NavPage } from '../types';
 
 interface FooterProps {
@@ -11,6 +11,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
   return (
     <footer className="bg-[#2D2422] text-[#E8DED9] pt-16 pb-12 border-t border-[#463936]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Disclaimer Banner */}
+        <div className="mb-12 p-4 sm:p-5 rounded-2xl bg-[#392C29] border border-[#53413E] flex flex-col sm:flex-row items-start sm:items-center gap-3.5 text-xs text-[#DAC7C2]">
+          <ShieldAlert className="w-5 h-5 text-[#E5A89E] shrink-0" />
+          <div className="space-y-0.5 leading-relaxed">
+            <strong className="text-white">Tuyên bố miễn trừ y khoa & Cam kết phi thương mại:</strong>
+            <p>
+              Mọi kiến thức trên Lumia mang tính chất tham khảo khoa học, không thay thế chẩn đoán hay phác đồ từ bác sĩ chuyên khoa da liễu. Lumia không bán hàng, không đặt link liên kết hoa hồng, và toàn bộ số liệu thống kê được hiển thị ở chế độ dữ liệu mẫu minh họa.
+            </p>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 mb-14">
           {/* Col 1 & 2: Brand & Mission */}
           <div className="lg:col-span-2 space-y-4">
@@ -32,21 +43,23 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
             </div>
 
             <p className="text-sm text-[#C4B2AD] leading-relaxed max-w-sm pt-2">
-              Lumia là blog và cộng đồng khoa học dành cho những người yêu thích làm đẹp. Chúng mình tin rằng mỗi làn da đều có câu chuyện riêng, và việc chăm sóc da bắt đầu từ sự hiểu biết chân thật.
+              Lumia là blog và cộng đồng khoa học phi thương mại dành cho người yêu làn da khỏe mạnh. Chúng mình chia sẻ kiến thức dựa trên y văn độc lập (AAD, PubMed), tôn trọng sự trung thực và tính khoa học.
             </p>
 
-            <div className="pt-2 text-xs text-[#A89691] space-y-1.5">
+            <div className="pt-2 text-xs text-[#A89691] space-y-2">
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#E5A89E] shrink-0" />
                 <span>TP. Hồ Chí Minh, Việt Nam</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#E5A89E] shrink-0" />
-                <span>hello@lumia.vn</span>
+                <a href="mailto:lumia.beauty.project@gmail.com" className="hover:text-white transition-colors underline">
+                  lumia.beauty.project@gmail.com
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#E5A89E] shrink-0" />
-                <span>0123 456 789</span>
+                <span>Hỗ trợ trực tuyến qua Email (Dự án học thuật)</span>
               </div>
             </div>
           </div>
@@ -70,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                   onClick={() => { onNavigate?.('articles'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
-                  Bài viết chuyên sâu
+                  Kho bài viết khoa học
                 </button>
               </li>
               <li>
@@ -78,7 +91,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                   onClick={() => { onNavigate?.('skin-knowledge'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
-                  Kiến thức làn da
+                  Kiến thức 5 loại da
                 </button>
               </li>
               <li>
@@ -86,7 +99,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                   onClick={() => { onNavigate?.('reviews'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
-                  Góc review chân thật
+                  Phân tích hoạt chất & mỹ phẩm
                 </button>
               </li>
             </ul>
@@ -114,7 +127,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                   }}
                   className="hover:text-white transition-colors"
                 >
-                  Đặt câu hỏi cho chuyên gia
+                  Đặt câu hỏi cho cộng đồng
                 </button>
               </li>
               <li>
@@ -122,7 +135,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                   onClick={() => { onNavigate?.('discussions'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
-                  Câu chuyện thành viên
+                  Kinh nghiệm & Trải nghiệm thực tế
                 </button>
               </li>
             </ul>
@@ -139,7 +152,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                   onClick={() => { onNavigate?.('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
-                  Về chúng tôi
+                  Giới thiệu & Triết lý dự án
                 </button>
               </li>
               <li>
@@ -147,14 +160,32 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
                   onClick={() => { onNavigate?.('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="hover:text-white transition-colors"
                 >
-                  Liên hệ
+                  Liên hệ & Đóng góp ý kiến
                 </button>
               </li>
               <li>
-                <span className="text-[#877874] cursor-default">Chính sách bảo mật</span>
+                <button 
+                  onClick={() => { onNavigate?.('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-[#B5A39E] hover:text-white transition-colors text-xs"
+                >
+                  Cam kết liêm chính học thuật
+                </button>
               </li>
               <li>
-                <span className="text-[#877874] cursor-default">Điều khoản sử dụng</span>
+                <button 
+                  onClick={() => { onNavigate?.('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-[#B5A39E] hover:text-white transition-colors text-xs"
+                >
+                  Chính sách bảo mật
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => { onNavigate?.('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-[#B5A39E] hover:text-white transition-colors text-xs"
+                >
+                  Điều khoản sử dụng
+                </button>
               </li>
             </ul>
           </div>
@@ -163,46 +194,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
         {/* Divider & Copyright */}
         <div className="pt-8 border-t border-[#3F3330] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A89691]">
           <p>© 2026 Lumia. All rights reserved. “Chạm vào vẻ đẹp, hiểu về làn da.”</p>
-          
-          <div className="flex items-center gap-4 text-sm">
-            {/* Social Links */}
-            <a 
-              href="https://facebook.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="w-8 h-8 rounded-full bg-[#3F3330] flex items-center justify-center hover:bg-[#E5A89E] hover:text-[#2D2422] transition-colors"
-              title="Facebook"
-            >
-              f
-            </a>
-            <a 
-              href="https://instagram.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="w-8 h-8 rounded-full bg-[#3F3330] flex items-center justify-center hover:bg-[#E5A89E] hover:text-[#2D2422] transition-colors font-serif italic"
-              title="Instagram"
-            >
-              in
-            </a>
-            <a 
-              href="https://tiktok.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="w-8 h-8 rounded-full bg-[#3F3330] flex items-center justify-center hover:bg-[#E5A89E] hover:text-[#2D2422] transition-colors"
-              title="TikTok"
-            >
-              tt
-            </a>
-            <a 
-              href="https://youtube.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="w-8 h-8 rounded-full bg-[#3F3330] flex items-center justify-center hover:bg-[#E5A89E] hover:text-[#2D2422] transition-colors"
-              title="YouTube"
-            >
-              yt
-            </a>
-          </div>
+          <p className="text-[11px] text-[#9A8782]">
+            Dự án nghiên cứu & phát triển website chuyên đề truyền thông số • Phi thương mại
+          </p>
         </div>
       </div>
     </footer>

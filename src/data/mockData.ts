@@ -1,5 +1,8 @@
 import { Article, SkinType, ReviewProduct, Discussion, NotificationItem } from '../types';
 
+export const STANDARD_MEDICAL_DISCLAIMER = 
+  "Nội dung trên Lumia nhằm mục đích cung cấp thông tin và kiến thức tham khảo, không thay thế cho chẩn đoán hoặc tư vấn y khoa từ bác sĩ/chuyên gia da liễu. Nếu bạn có vấn đề về da kéo dài hoặc nghiêm trọng, hãy tìm kiếm sự tư vấn từ chuyên gia y tế.";
+
 export const mockSkinTypes: SkinType[] = [
   {
     id: 'oily',
@@ -50,7 +53,7 @@ export const mockSkinTypes: SkinType[] = [
     avoidIngredients: ['Sữa rửa mặt tạo bọt mạnh chứa SLS', 'Cồn khô (Alcohol Denat)', 'AHA nồng độ quá cao khi chưa phục hồi'],
     routineTips: [
       'Sử dụng sữa rửa mặt dạng kem hoặc sữa dịu nhẹ không bọt',
-      'Vỗ toner dưỡng ẩm tầng lớp (7-skin method nhẹ nhàng) khi da còn ẩm',
+      'Vỗ toner dưỡng ẩm tầng lớp khi da còn ẩm',
       'Khóa ẩm bằng kem dưỡng giàu Ceramide và dầu dưỡng thực vật như Squalane',
       'Bổ sung xịt khoáng cấp ẩm dịu nhẹ trong ngày'
     ],
@@ -80,7 +83,7 @@ export const mockSkinTypes: SkinType[] = [
       'Làm sạch nhẹ nhàng, không chà xát mạnh vùng má',
       'Tẩy tế bào chết BHA tập trung cho vùng mũi và cằm'
     ],
-    image: 'https://images.unsplash.com/photo-1512290900672-1f4a9b5f5439?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80',
     accentColor: '#0D9488'
   },
   {
@@ -103,7 +106,7 @@ export const mockSkinTypes: SkinType[] = [
     recommendedIngredients: ['Madecassoside (Rau má)', 'Panthenol (Vitamin B5)', 'Allantoin', 'Oat Extract (Chiết xuất yến mạch)', 'Ectoin'],
     avoidIngredients: ['Hương liệu (Fragrance/Parfum)', 'Essential Oils (tinh dầu thơm)', 'Cồn khô', 'Chất tẩy da chết hạt to'],
     routineTips: [
-      'Tối giản chu trình còn 3 bước: Làm sạch dịu nhẹ - Phục hồi - Chống nắng vật lý',
+      'Tối giản chu trình còn 3 bước: Làm sạch dịu nhẹ - Phục hồi - Chống nắng quang phổ rộng',
       'Luôn patch test sản phẩm mới ở vùng da dưới quai hàm trong 48 giờ',
       'Chọn sản phẩm đạt chứng nhận Hypoallergenic và không hương liệu'
     ],
@@ -131,7 +134,7 @@ export const mockSkinTypes: SkinType[] = [
     routineTips: [
       'Tập trung vào bước bảo vệ chống lão hóa và duy trì độ ẩm',
       'Sử dụng serum chống oxy hóa vào buổi sáng trước kem chống nắng',
-      'Tẩy da chết hóa học AHA 1 lần/tuần để duy trì làn da căng bóng'
+      'Tẩy da chết hóa học nhẹ nhàng 1 lần/tuần để duy trì làn da căng bóng'
     ],
     image: 'https://images.unsplash.com/photo-1576426863848-c21f53c60b19?auto=format&fit=crop&w=800&q=80',
     accentColor: '#059669'
@@ -149,7 +152,7 @@ export const mockArticles: Article[] = [
     coverImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'Thảo My',
-      role: 'Beauty Editor & Dược sĩ Mỹ phẩm',
+      role: 'Dược sĩ & Chuyên viên nghiên cứu sinh học da',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
       bio: 'Hơn 6 năm nghiên cứu công thức mỹ phẩm và chia sẻ lối sống làm đẹp khoa học.'
     },
@@ -159,10 +162,32 @@ export const mockArticles: Article[] = [
     views: 3890,
     tags: ['Skincare cơ bản', 'Người mới bắt đầu', 'Routine', 'Làm sạch'],
     isFeatured: true,
+    isDemo: true,
+    targetSkinTypes: ['Da dầu', 'Da khô', 'Da hỗn hợp', 'Da nhạy cảm', 'Da thường'],
+    skinConcerns: ['Mụn & bít tắc', 'Hàng rào bảo vệ da & Phục hồi'],
+    references: [
+      {
+        title: 'Skin Care Basics & Dermatologist Recommended Daily Routines',
+        source: 'American Academy of Dermatology (AAD)',
+        year: '2024',
+        url: 'https://www.aad.org/public/everyday-care/skin-care-basics'
+      },
+      {
+        title: 'The role of moisturization in epidermal barrier function',
+        source: 'Journal of Clinical and Aesthetic Dermatology (PubMed Central)',
+        year: '2022'
+      },
+      {
+        title: 'Hướng dẫn chăm sóc và phục hồi màng lipid sinh học',
+        source: 'Tài liệu đào tạo Bệnh viện Da liễu Trung ương',
+        year: '2023'
+      }
+    ],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
     keyTakeaways: [
-      'Làm sạch đúng cách là nền tảng của mọi làn da không mụn',
-      'Đừng lạm dụng quá nhiều hoạt chất treatment khi da chưa đủ ẩm',
-      'Kem chống nắng là bước chống lão hóa quan trọng nhất mỗi ngày'
+      'Làm sạch đúng cách với sữa rửa mặt pH 5.0 - 5.5 là nền tảng của mọi làn da khỏe',
+      'Không lạm dụng quá nhiều hoạt chất treatment khi hàng rào biểu bì chưa vững chắc',
+      'Kem chống nắng quang phổ rộng là bước bảo vệ da cốt lõi mỗi ngày'
     ],
     highlightQuote: 'Làm đẹp không phải là phủ lên da thật nhiều lớp dưỡng, mà là lắng nghe và thấu hiểu đúng điều làn da đang khao khát.',
     relatedIds: ['art-2', 'art-4', 'art-5'],
@@ -172,39 +197,41 @@ export const mockArticles: Article[] = [
         authorName: 'Hoàng Lan',
         authorAvatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80',
         date: '14 Tháng 9, 2026',
-        content: 'Bài viết rất hữu ích cho người mới tập tành như mình. Nhờ Lumia mà mình biết không nên rửa mặt bằng nước quá ấm!',
-        likes: 19
+        content: 'Bài viết phân tích rất dễ hiểu cho người mới bắt đầu. Nhờ bài viết mà mình không còn rửa mặt bằng nước nóng làm khô màng da nữa!',
+        likes: 19,
+        isDemo: true
       },
       {
         id: 'c-2',
         authorName: 'Minh Trang',
         authorAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80',
         date: '14 Tháng 9, 2026',
-        content: 'Cho mình hỏi da dầu thì bước kem dưỡng ẩm ban ngày có thể bỏ qua và dùng luôn kem chống nắng có dưỡng được không ạ?',
-        likes: 8
+        content: 'Cho mình hỏi da dầu thì bước kem dưỡng ẩm ban ngày có thể tối giản nếu kem chống nắng đã có sẵn thành phần giữ ẩm không ạ?',
+        likes: 8,
+        isDemo: true
       }
     ],
     content: [
-      'Bước vào thế giới skincare lần đầu tiên giống như lạc vào một mê cung vô tận. Từ toner, essence, ampoule, serum cho đến mặt nạ ngủ, bạn rất dễ bị choáng ngợp và chi tiêu lãng phí vào những món đồ chưa thực sự cần thiết.',
-      'Thực chất, các bác sĩ da liễu hàng đầu đều đồng thuận rằng: Một làn da khỏe đẹp bắt đầu từ sự đơn giản và nhất quán. Dưới đây là 5 bước tối giản nhưng mang lại hiệu quả bền vững nhất.',
-      'Bước 1: Tẩy trang dịu nhẹ. Ngay cả khi bạn không trang điểm, kem chống nắng và bụi mịn PM2.5 trong không khí vẫn bám chặt vào lỗ chân lông. Nước tẩy trang micellar hoặc sáp tẩy trang nhũ hóa kỹ sẽ giúp loại bỏ sạch tạp chất mà không làm tổn hại màng lipid.',
-      'Bước 2: Sữa rửa mặt có độ pH 5.0 - 5.5. Hãy từ bỏ ngay những loại sữa rửa mặt tạo cảm giác "sạch kin kít". Cảm giác đó chứng tỏ hàng rào bảo vệ tự nhiên của bạn vừa bị tước đoạt. Hãy chọn sản phẩm dịu nhẹ, tạo bọt mịn vừa phải.',
+      'Bước vào thế giới skincare lần đầu tiên giống như lạc vào một mê cung vô tận. Từ toner, essence, ampoule, serum cho đến mặt nạ ngủ, bạn rất dễ bị choáng ngợp và sa đà vào những trào lưu chưa thực sự phù hợp với làn da mình.',
+      'Thực chất, các bác sĩ da liễu hàng đầu đều đồng thuận rằng: Một làn da khỏe đẹp bắt đầu từ sự tối giản và tính nhất quán. Dưới đây là 5 bước tối giản nhưng mang lại hiệu quả bền vững nhất theo khuyến nghị y khoa.',
+      'Bước 1: Tẩy trang dịu nhẹ. Ngay cả khi bạn không trang điểm, kem chống nắng và bụi mịn PM2.5 trong không khí vẫn bám chặt vào lỗ chân lông. Nước tẩy trang micellar hoặc dầu tẩy trang nhũ hóa kỹ sẽ giúp loại bỏ sạch tạp chất mà không làm tổn hại màng lipid.',
+      'Bước 2: Sữa rửa mặt có độ pH 5.0 - 5.5. Hãy từ bỏ ngay những loại xà phòng tạo cảm giác "sạch kin kít". Cảm giác đó chứng tỏ hàng rào bảo vệ tự nhiên của bạn vừa bị tước đoạt. Hãy chọn sản phẩm dịu nhẹ, tạo bọt mịn vừa phải.',
       'Bước 3: Cân bằng & cấp nước tầng nông. Toner hoặc xịt khoáng không cồn giúp khôi phục độ pH tức thì và tạo môi trường ẩm để các dưỡng chất sau thẩm thấu tốt hơn gấp 3 lần.',
-      'Bước 4: Khóa ẩm (Moisturizer). Dù bạn thuộc tuýp da dầu hay da khô, nước bên dưới biểu bì luôn có xu hướng bốc hơi qua da. Kem dưỡng mỏng nhẹ đóng vai trò như một lớp màng bảo vệ ngăn ngừa sự mất nước vô hình.',
-      'Bước 5: Kem chống nắng quang phổ rộng (Ban ngày). Không có kem chống nắng, mọi nỗ lực dưỡng sáng hay chống lão hóa của bạn đều trở nên vô nghĩa. Hãy tạo thói quen thoa kem chống nắng đủ 2 ngón tay mỗi sáng trước khi ra ngoài 20 phút.'
+      'Bước 4: Khóa ẩm (Moisturizer). Dù bạn thuộc tuýp da dầu hay da khô, nước bên dưới biểu bì luôn có xu hướng bốc hơi qua da (TEWL). Kem dưỡng mỏng nhẹ đóng vai trò như một lớp màng bảo vệ ngăn ngừa sự mất nước vô hình.',
+      'Bước 5: Kem chống nắng quang phổ rộng (Ban ngày). Không có kem chống nắng, mọi nỗ lực dưỡng sáng hay chống lão hóa của bạn đều trở nên vô nghĩa. Hãy tạo thói quen thoa kem chống nắng đủ lượng mỗi sáng trước khi ra ngoài.'
     ]
   },
   {
     id: 'art-2',
     slug: 'niacinamide-la-gi-cong-dung-va-cach-su-dung-dung',
-    title: 'Niacinamide là gì? Công dụng và cách sử dụng đúng chuẩn khoa học',
+    title: 'Niacinamide là gì? Cơ chế sinh học và cách sử dụng chuẩn y khoa',
     category: 'ingredients',
     categoryName: 'Thành phần',
-    excerpt: 'Khám phá hoạt chất vàng trong làng chăm sóc da: từ khả năng thu nhỏ lỗ chân lông, làm đều màu da đến phục hồi hàng rào ẩm.',
-    coverImage: 'https://images.unsplash.com/photo-1608248597359-57e0344d416b?auto=format&fit=crop&w=1200&q=85',
+    excerpt: 'Khám phá hoạt chất vàng trong da liễu: từ khả năng điều tiết bã nhờn, củng cố Ceramide tự nhiên đến làm đều màu da mụn.',
+    coverImage: 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'TS. Lê Anh Thư',
-      role: 'Chuyên gia Hóa mỹ phẩm',
+      role: 'Tiến sĩ Hóa Sinh & Chuyên gia Phân tích Hoạt chất',
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
       bio: 'Tiến sĩ Hóa Sinh, người phân tích minh bạch các thành phần mỹ phẩm phổ biến.'
     },
@@ -212,12 +239,34 @@ export const mockArticles: Article[] = [
     readTime: '8 phút đọc',
     likes: 512,
     views: 4520,
-    tags: ['Niacinamide', 'Vitamin B3', 'Thành phần', 'Thu nhỏ lỗ chân lông'],
+    tags: ['Niacinamide', 'Vitamin B3', 'Thành phần', 'Kiểm soát bã nhờn'],
     isFeatured: true,
+    isDemo: true,
+    targetSkinTypes: ['Da dầu', 'Da hỗn hợp', 'Da nhạy cảm', 'Da thường'],
+    skinConcerns: ['Mụn & bít tắc', 'Làm sáng & Mờ thâm', 'Hàng rào bảo vệ da & Phục hồi'],
+    references: [
+      {
+        title: 'Nicotinamide: Mechanisms of action and its topical use in dermatology',
+        source: 'PubMed / National Center for Biotechnology Information (PMC6786012)',
+        year: '2019',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/17147561/'
+      },
+      {
+        title: 'Topical niacinamide reduces yellowing, wrinkling, red blotchiness, and hyperpigmented spots in aging facial skin',
+        source: 'International Journal of Cosmetic Science',
+        year: '2021'
+      },
+      {
+        title: 'Niacinamide in Dermatology: Evidence-based clinical review',
+        source: 'British Journal of Dermatology',
+        year: '2023'
+      }
+    ],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
     keyTakeaways: [
       'Niacinamide là dạng amide hoạt tính của Vitamin B3 rất bền vững với ánh sáng và nhiệt độ',
-      'Nồng độ lý tưởng cho người mới là từ 2% đến 5%, không nhất thiết phải 10% - 20%',
-      'Hoàn toàn có thể kết hợp an toàn cùng Hyaluronic Acid, Retinol và Salicylic Acid'
+      'Nồng độ sinh học lý tưởng và an toàn nhất là từ 2% đến 5%, không cần thiết phải dùng 15% - 20%',
+      'Tương thích sinh học cao khi kết hợp cùng Hyaluronic Acid, Ceramide và Salicylic Acid'
     ],
     highlightQuote: 'Nồng độ cao hơn không đồng nghĩa với làn da đẹp nhanh hơn; sự tương thích sinh học mới là chìa khóa của sự chuyển biến.',
     relatedIds: ['art-1', 'art-7', 'art-5'],
@@ -227,61 +276,83 @@ export const mockArticles: Article[] = [
         authorName: 'Bảo Trâm',
         authorAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
         date: '12 Tháng 9, 2026',
-        content: 'Trước dùng 10% bị ngứa đỏ, đọc bài này mình hạ xuống 3% thì da êm ru và giảm dầu rõ rệt!',
-        likes: 14
+        content: 'Trước đây mình từng dùng loại 10% bị đỏ ửng quanh mũi, đọc bài này mình hạ xuống 3% - 4% thì da êm hẳn và kiềm dầu tốt.',
+        likes: 14,
+        isDemo: true
       }
     ],
     content: [
-      'Trong ngành công nghiệp mỹ phẩm hiện đại, hiếm có thành phần nào nhận được nhiều nghiên cứu lâm sàng chứng minh hiệu quả toàn diện như Niacinamide (Vitamin B3).',
-      'Cơ chế hoạt động của Niacinamide: Khi thẩm thấu vào tế bào da, Niacinamide kích thích sản sinh hai coenzyme quan trọng là NAD+ và NADP+. Hai hợp chất này đóng vai trò sống còn trong việc tái tạo năng lượng tế bào, kích thích tổng hợp Ceramide tự nhiên.',
-      'Công dụng nổi bật: 1) Kiểm soát dầu thừa và hỗ trợ thu nhỏ lỗ chân lông quang học; 2) Ức chế chuyển melanosome từ tế bào hắc tố lên biểu bì, làm mờ thâm mụn; 3) Tăng sinh Collagen loại I giúp tăng độ đàn hồi; 4) Kháng viêm mạnh mẽ cho da mụn trứng cá.',
-      'Chọn nồng độ phù hợp: Nghiên cứu của đại học Tokyo cho thấy nồng độ 2% - 5% đã phát huy tối đa lợi ích cải thiện màng ẩm và giảm tăng sắc tố mà không gây đỏ ngứa do giãn mạch. Tránh chạy theo trào lưu 15% - 20% nếu da bạn nhạy cảm.'
+      'Trong ngành da liễu hiện đại, hiếm có thành phần nào nhận được nhiều nghiên cứu lâm sàng chứng minh hiệu quả toàn diện như Niacinamide (dẫn xuất sinh học của Vitamin B3).',
+      'Cơ chế hoạt động tế bào: Khi thẩm thấu vào biểu bì, Niacinamide kích thích sản sinh hai coenzyme quan trọng là NAD+ và NADP+. Hai hợp chất này đóng vai trò sống còn trong việc tái tạo năng lượng tế bào, kích thích nguyên bào sợi tự tổng hợp Ceramide và củng cố hàng rào màng lipid tự nhiên.',
+      'Công dụng nổi bật đã kiểm chứng: 1) Điều tiết lượng bã nhờn tiết ra từ tuyến dầu; 2) Ức chế quá trình chuyển melanosome từ tế bào hắc tố melanocyte lên bề mặt sừng, từ đó làm mờ dần vết thâm mụn; 3) Kháng viêm sinh học, hỗ trợ giảm sưng tấy cho làn da có mụn viêm.',
+      'Lựa chọn nồng độ khoa học: Nhiều thử nghiệm lâm sàng đối chứng mù đôi cho thấy nồng độ từ 2% đến 5% đã đạt hiệu quả tối ưu. Việc chạy theo các công thức 15% - 20% dễ gây hiện tượng giãn mạch vi thể (flushing), châm chích và kích ứng không đáng có.'
     ]
   },
   {
     id: 'art-3',
-    slug: 'review-5-loai-kem-chong-nang-duoc-yeu-thich-hien-nay',
-    title: 'Review 5 loại kem chống nắng được yêu thích hiện nay: Đâu là chân ái?',
-    category: 'review',
-    categoryName: 'Review mỹ phẩm',
-    excerpt: 'Phân tích chi tiết màng lọc chống nắng, độ kiềm dầu, cảm giác trên da và khả năng chống trôi thực tế trong khí hậu nóng ẩm Việt Nam.',
+    slug: 'huong-dan-chon-kem-chong-nang-cho-da-dau-mun',
+    title: 'Những điều cần biết khi lựa chọn kem chống nắng cho da dầu mụn',
+    category: 'ingredients',
+    categoryName: 'Khoa học chống nắng',
+    excerpt: 'Hiểu đúng về các màng lọc UV thế hệ mới, cách đọc chỉ số SPF/PPD và các thành phần kiểm soát dầu không gây bít tắc lỗ chân lông.',
     coverImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'Vũ Hải Yến',
-      role: 'Senior Skincare Reviewer',
+      role: 'Chuyên viên Nghiên cứu Công thức Mỹ phẩm',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
-      bio: 'Trải nghiệm hơn 100 loại kem chống nắng qua các mùa và khí hậu khác nhau.'
+      bio: 'Chuyên nghiên cứu tính ổn định quang học của màng lọc chống nắng thế hệ mới.'
     },
     date: '10 Tháng 9, 2026',
     readTime: '7 phút đọc',
     likes: 673,
     views: 6120,
-    tags: ['Kem chống nắng', 'Review chân thật', 'Màng lọc quang phổ', 'Da dầu mụn'],
+    tags: ['Kem chống nắng', 'Màng lọc quang phổ', 'Da dầu mụn', 'Kiến thức da liễu'],
     isFeatured: true,
-    keyTakeaways: [
-      'Màng lọc quang phổ rộng Tinosorb S, Mexoryl 400 và Uvinul A Plus bảo vệ vượt trội tia UVA dài',
-      'Độ vón cục (pilling) thường do xung đột giữa chất tạo màng polymer với kem dưỡng lót bên dưới',
-      'Nên chọn finish ráo mịn cho mùa hè oi bức'
+    isDemo: true,
+    targetSkinTypes: ['Da dầu', 'Da hỗn hợp', 'Da nhạy cảm'],
+    skinConcerns: ['Mụn & bít tắc', 'Chống lão hóa & Nếp nhăn', 'Làm sáng & Mờ thâm'],
+    references: [
+      {
+        title: 'Ultraviolet Radiation and Global Sun Protection Standards',
+        source: 'World Health Organization (WHO)',
+        year: '2023',
+        url: 'https://www.who.int/news-room/fact-sheets/detail/ultraviolet-radiation'
+      },
+      {
+        title: 'How to decode sunscreen labels: Broad spectrum, SPF, and Water resistance',
+        source: 'American Academy of Dermatology (AAD)',
+        year: '2024'
+      },
+      {
+        title: 'Photostability and absorption spectra of modern broad-spectrum UVA1 filters',
+        source: 'British Journal of Dermatology',
+        year: '2023'
+      }
     ],
-    highlightQuote: 'Kem chống nắng tốt nhất không phải là tuýp đắt tiền nhất, mà là tuýp bạn sẵn sàng bôi đủ lượng và bôi đều đặn mỗi ngày.',
-    relatedIds: ['art-1', 'art-4'],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
+    keyTakeaways: [
+      'Da dầu mụn cần ưu tiên màng lọc bền vững như Mexoryl 400, Tinosorb S, Uvinul A Plus',
+      'Tránh các gốc dầu khoáng nặng hoặc este dễ sinh nhân mụn (Isopropyl Myristate, Isopropyl Palmitate)',
+      'Tìm kiếm các khoáng chất kiềm dầu sinh học như Silica, Perlite và Zinc PCA'
+    ],
+    highlightQuote: 'Một tuýp chống nắng tốt nhất là sản phẩm bảo vệ toàn diện quang phổ mà không khiến lỗ chân lông bị ngạt thở.',
+    relatedIds: ['art-1', 'art-4', 'art-5'],
     comments: [
       {
         id: 'c-4',
         authorName: 'Đức Huy',
         authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
         date: '11 Tháng 9, 2026',
-        content: 'Bài review rất khách quan, phân tích rõ ưu nhược điểm chứ không hề tâng bốc nhãn hàng.',
-        likes: 22
+        content: 'Bài viết phân tích màng lọc rất chi tiết, giúp mình biết cách nhìn bảng thành phần INCI thay vì chỉ nhìn vào quảng cáo.',
+        likes: 22,
+        isDemo: true
       }
     ],
     content: [
-      'Tìm được một tuýp kem chống nắng không vón, không bóng nhẫy và không làm cay mắt là hành trình gian nan của bất kỳ tín đồ làm đẹp nào.',
-      'Trong bài viết này, Lumia đem đến bài kiểm tra thực nghiệm 5 đại diện tiêu biểu nhất phân khúc hiện nay, đánh giá trực tiếp trên da mộc trong môi trường văn phòng máy lạnh kết hợp di chuyển ngoài trời 35 độ C.',
-      'Sản phẩm 1: La Roche-Posay Anthelios UVMune 400 Oil Control Gel-Cream. Với màng lọc độc quyền Mexoryl 400 chặn tia UVA bước sóng 380-400nm, chất kem kiềm dầu đến 6 tiếng mà không để lại vệt trắng bệt.',
-      'Sản phẩm 2: Skin1004 Madagascar Centella Hyalu-Cica Water-Fit Sun Serum. Chất gel nước mát lạnh như thoa serum cấp ẩm, lý tưởng cho da hỗn hợp và da khô, lớp finish mọng nước cực kỳ tự nhiên.',
-      'Sản phẩm 3: Anessa Perfect UV Sunscreen Skincare Milk. Khả năng chống nước và mồ hôi hàng đầu nhờ công nghệ Thermo Booster và Aqua Booster EX.',
-      'Lời khuyên chung: Hãy thoa kem chống nắng 15 phút trước khi ra ngoài và đừng quên thoa cả vùng cổ và mang tai!'
+      'Da dầu mụn luôn là thách thức lớn nhất khi thoa kem chống nắng. Nếu công thức quá dày sẽ gây bít tắc sinh mụn ẩn; nếu kiềm dầu quá gắt lại khiến da phản ứng tiết thêm nhiều bã nhờn bù trừ.',
+      '1. Hiểu về các màng lọc quang phổ rộng: Tia UVA1 (bước sóng 340-400nm) chiếm tới 75% lượng bức xạ mặt trời chạm tới mặt đất và là tác nhân chính gây phá hủy collagen tầng sâu. Các màng lọc thế hệ mới như Mexoryl 400, Tinosorb S và Uvinul A Plus có độ bền quang học cao, ít gây kích ứng và bảo vệ vượt trội.',
+      '2. Thành phần hỗ trợ kiểm soát bã nhờn an toàn: Thay vì chọn sản phẩm có cồn khô nồng độ cao (Alcohol Denat đứng đầu bảng thành phần dễ gây rát da mụn), hãy ưu tiên các thành phần hấp thụ dầu vật lý như Silica, đất sét khoáng Kaolin, hạt Perlite và Kẽm PCA (Zinc PCA).',
+      '3. Nguyên tắc làm sạch cuối ngày: Dù kem chống nắng có mỏng nhẹ đến đâu, các phân tử chống nắng và chất tạo màng kháng nước vẫn cần được làm sạch bằng nước tẩy trang hoặc dầu tẩy trang nhũ hóa kỹ trước khi dùng sữa rửa mặt.'
     ]
   },
   {
@@ -290,11 +361,11 @@ export const mockArticles: Article[] = [
     title: 'Làm thế nào để xác định đúng loại da của bạn? Hướng dẫn tự test tại nhà',
     category: 'tips',
     categoryName: 'Tips & Mẹo',
-    excerpt: 'Phương pháp tự kiểm tra bằng giấy thấm dầu và quan sát cảm giác mộc sau 30 phút giúp bạn nhận diện chính xác tuýp da hiện tại.',
-    coverImage: 'https://images.unsplash.com/photo-1512290900672-1f4a9b5f5439?auto=format&fit=crop&w=1200&q=85',
+    excerpt: 'Phương pháp tự kiểm tra bằng quan sát cảm giác mặt mộc sau 30 phút giúp bạn nhận diện chính xác tuýp da hiện tại của mình.',
+    coverImage: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'Thảo My',
-      role: 'Beauty Editor & Dược sĩ Mỹ phẩm',
+      role: 'Dược sĩ & Chuyên viên nghiên cứu sinh học da',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
       bio: 'Chia sẻ kiến thức chăm sóc da dựa trên bằng chứng khoa học.'
     },
@@ -304,16 +375,33 @@ export const mockArticles: Article[] = [
     views: 3410,
     tags: ['Xác định loại da', 'Test da tại nhà', 'Da dầu', 'Da khô', 'Da nhạy cảm'],
     isFeatured: true,
+    isDemo: true,
+    targetSkinTypes: ['Da dầu', 'Da khô', 'Da hỗn hợp', 'Da nhạy cảm', 'Da thường'],
+    skinConcerns: ['Hàng rào bảo vệ da & Phục hồi', 'Mụn & bít tắc', 'Nhạy cảm & Kích ứng'],
+    references: [
+      {
+        title: 'The Baumann Skin Typing System: A validated questionnaire',
+        source: 'Journal of Cosmetic Dermatology',
+        year: '2021',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/18318884/'
+      },
+      {
+        title: 'Skin type evaluation: sebum secretion and barrier integrity',
+        source: 'International Journal of Dermatology',
+        year: '2022'
+      }
+    ],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
     keyTakeaways: [
-      'Loại da di truyền có thể thay đổi theo tuổi tác, thời tiết và hormone cơ thể',
-      'Đừng nhầm lẫn giữa da thiếu nước (tình trạng da tạm thời) và da khô bẩm sinh (loại da di truyền)',
-      'Thử nghiệm "Mặt mộc 30 phút" là cách đơn giản và chính xác nhất tại nhà'
+      'Loại da di truyền có thể biến động do khí hậu, nồng độ hormone và cách dưỡng da',
+      'Phân biệt rõ da thiếu nước (tình trạng tạm thời) và da khô (loại da di truyền)',
+      'Phương pháp mặt mộc 30 phút là công cụ tự kiểm chứng đơn giản và hiệu quả nhất'
     ],
     highlightQuote: 'Bạn không thể chọn đúng thuốc nếu chẩn đoán sai bệnh; tương tự, bạn không thể chọn đúng mỹ phẩm nếu chưa hiểu làn da mình là ai.',
     relatedIds: ['art-1', 'art-5', 'art-2'],
     comments: [],
     content: [
-      'Rất nhiều bạn mua những hũ kem đắt tiền nhưng càng dùng da càng nổi mụn hoặc sần sùi. Nguyên nhân 80% đến từ việc xác định sai loại da.',
+      'Rất nhiều bạn chi tiêu lãng phí vào mỹ phẩm nhưng càng dùng da càng nổi mụn hoặc sần sùi. Nguyên nhân thường gặp đến từ việc ngộ nhận về loại da của chính mình.',
       'Phương pháp kiểm nghiệm chuẩn "Bare-Face Method":',
       'Bước 1: Rửa mặt thật sạch bằng sữa rửa mặt dịu nhẹ, dùng khăn cotton mềm thấm nhẹ cho ráo.',
       'Bước 2: Để mặt mộc hoàn toàn, không thoa bất kỳ toner, serum hay kem dưỡng nào. Ngồi trong phòng nhiệt độ bình thường (25-27 độ C) trong đúng 30 phút.',
@@ -335,7 +423,7 @@ export const mockArticles: Article[] = [
     coverImage: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'TS. Lê Anh Thư',
-      role: 'Chuyên gia Hóa mỹ phẩm',
+      role: 'Tiến sĩ Hóa Sinh & Chuyên gia Phân tích Hoạt chất',
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
       bio: 'Tiến sĩ Hóa Sinh'
     },
@@ -344,11 +432,36 @@ export const mockArticles: Article[] = [
     likes: 345,
     views: 2980,
     tags: ['Phục hồi da', 'Skin Barrier', 'Ceramide', 'B5 Panthenol'],
+    isFeatured: true,
+    isDemo: true,
+    targetSkinTypes: ['Da nhạy cảm', 'Da khô', 'Da sau treatment', 'Da dầu'],
+    skinConcerns: ['Hàng rào bảo vệ da & Phục hồi', 'Nhạy cảm & Kích ứng', 'Mụn & bít tắc'],
+    references: [
+      {
+        title: 'Skin Barrier Function and the Role of Physiological Lipid Replacement Therapy',
+        source: 'PubMed / National Center for Biotechnology Information (PMC5605215)',
+        year: '2020',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/24719068/'
+      },
+      {
+        title: 'Stratum Corneum Lipids: The Essential Chemistry of Skin Barrier Protection',
+        source: 'Dermatology Clinics Review',
+        year: '2022'
+      }
+    ],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
+    keyTakeaways: [
+      'Hàng rào da gồm tế bào sừng (gạch) và màng lipid (vữa: Ceramide, Cholesterol, Axit béo)',
+      'Tạm ngừng toàn bộ acid tẩy da chết và retinoids khi da có biểu hiện châm chích, đỏ rát',
+      'Bổ sung Panthenol (B5), Madecassoside và tỷ lệ lipid sinh học 3:1:1 để tái thiết lập màng ẩm'
+    ],
+    highlightQuote: 'Đừng cố trị mụn trên một nền da đang rách toạc màng bảo vệ; phục hồi hàng rào là điều kiện tiên quyết để da tự chữa lành.',
+    relatedIds: ['art-1', 'art-2', 'art-7'],
     comments: [],
     content: [
-      'Màng bảo vệ da giống như bức tường gạch vữa: tế bào sừng là viên gạch, còn lipids (Ceramide, Cholesterol, Axit béo tự do) là lớp vữa liên kết.',
-      'Khi lạm dụng acid AHA/BHA, Retinol nồng độ cao hoặc cọ rửa quá mức, lớp vữa bị rửa trôi, khiến vi khuẩn xâm nhập và nước bốc hơi nhanh chóng.',
-      'Giải pháp: Tạm dừng toàn bộ active treatment trong ít nhất 2 tuần. Bổ sung các sản phẩm có tỷ lệ sinh học 3:1:1 (Ceramide : Cholesterol : Fatty acids) cùng Vitamin B5 để thúc đẩy tăng sinh tế bào mới.'
+      'Màng bảo vệ da (Stratum Corneum) giống như một bức tường gạch vữa: tế bào sừng là viên gạch, còn lipids sinh học (gồm Ceramide, Cholesterol và Axit béo tự do) là lớp vữa gắn kết bảo vệ.',
+      'Khi lạm dụng acid AHA/BHA, Retinol nồng độ cao hoặc cọ rửa bằng máy rửa mặt quá thô bạo, lớp vữa lipid bị hòa tan. Hậu quả là hơi ẩm thoát ra ngoài (hiện tượng TEWL tăng vọt), trong khi vi khuẩn gây mụn C. acnes và chất gây dị ứng tự do xâm nhập sâu.',
+      'Phác đồ phục hồi 14 ngày: 1) Tạm dừng toàn bộ active treatment acid/retinoid; 2) Rửa mặt bằng nước mát hoặc sữa rửa mặt không bọt; 3) Thoa serum chứa Panthenol 5% và Centella Asiatica để làm dịu phản ứng viêm đỏ; 4) Khóa ẩm bằng kem dưỡng phục hồi chứa Ceramide 1, 3, 6-II.'
     ]
   },
   {
@@ -361,7 +474,7 @@ export const mockArticles: Article[] = [
     coverImage: 'https://images.unsplash.com/photo-1576426863848-c21f53c60b19?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'Ngọc Hân',
-      role: 'Beauty Trend Researcher',
+      role: 'Chuyên viên Nghiên cứu Xu hướng Làm đẹp Bền vững',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
       bio: 'Nghiên cứu xu hướng làm đẹp bền vững tại Châu Á.'
     },
@@ -370,10 +483,26 @@ export const mockArticles: Article[] = [
     likes: 290,
     views: 2310,
     tags: ['Clean Beauty', 'Bền vững', 'Mỹ phẩm thuần chay', 'Xu hướng 2026'],
+    isDemo: true,
+    targetSkinTypes: ['Da nhạy cảm', 'Da thường', 'Mọi loại da'],
+    skinConcerns: ['Nhạy cảm & Kích ứng', 'Chống lão hóa & Nếp nhăn'],
+    references: [
+      {
+        title: 'Safety assessment of cosmetic ingredients and sustainable toxicology standards',
+        source: 'Cosmetic Ingredient Review (CIR)',
+        year: '2024'
+      },
+      {
+        title: 'Green cosmetics and circular economy in personal care formulations',
+        source: 'Sustainable Chemistry and Pharmacy Journal',
+        year: '2023'
+      }
+    ],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
     comments: [],
     content: [
-      'Năm 2026 chứng kiến sự trưởng thành của cộng đồng người tiêu dùng mỹ phẩm tại Việt Nam. Không còn tin vào những lời quảng cáo vô căn cứ, người dùng đòi hỏi bằng chứng minh bạch về nguồn gốc thành phần.',
-      'Clean Beauty hiện đại tôn vinh sự kết hợp giữa các chiết xuất thực vật hữu cơ và công nghệ lên men vi sinh sinh học (Bio-fermentation), giúp hoạt chất ổn định và giảm thiểu gánh nặng lên môi trường biển.'
+      'Năm 2026 chứng kiến sự trưởng thành của cộng đồng người tiêu dùng mỹ phẩm tại Việt Nam. Không còn tin vào những lời quảng cáo giật gân, người dùng đòi hỏi bằng chứng minh bạch về nguồn gốc thành phần.',
+      'Clean Beauty hiện đại tôn vinh sự kết hợp giữa các chiết xuất thực vật hữu cơ và công nghệ lên men vi sinh sinh học (Bio-fermentation), giúp hoạt chất ổn định hơn mà giảm thiểu gánh nặng rác thải lên môi trường tự nhiên.'
     ]
   },
   {
@@ -382,11 +511,11 @@ export const mockArticles: Article[] = [
     title: 'Cách kết hợp BHA và Retinol an toàn mà không lo kích ứng hay breakout',
     category: 'ingredients',
     categoryName: 'Thành phần',
-    excerpt: 'Liệu hai "ngôi sao" quyền lực có thể đứng chung trong một chu trình? Quy tắc xen kẽ ngày và đệm ẩm chuẩn y khoa.',
+    excerpt: 'Liệu hai hoạt chất nồng độ cao có thể đứng chung trong một chu trình? Quy tắc xen kẽ ngày và đệm ẩm chuẩn y khoa.',
     coverImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'Vũ Hải Yến',
-      role: 'Senior Skincare Reviewer',
+      role: 'Chuyên viên Nghiên cứu Công thức Mỹ phẩm',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80'
     },
     date: '28 Tháng 8, 2026',
@@ -394,10 +523,27 @@ export const mockArticles: Article[] = [
     likes: 412,
     views: 3670,
     tags: ['BHA', 'Retinol', 'Treatment', 'Chống lão hóa'],
+    isDemo: true,
+    targetSkinTypes: ['Da dầu', 'Da mụn', 'Da hỗn hợp'],
+    skinConcerns: ['Mụn & bít tắc', 'Chống lão hóa & Nếp nhăn', 'Làm sáng & Mờ thâm'],
+    references: [
+      {
+        title: 'Retinoids in the treatment of skin aging: an overview of clinical efficacy and safety',
+        source: 'Clinical Interventions in Aging (PubMed Central)',
+        year: '2021',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/17253549/'
+      },
+      {
+        title: 'Salicylic acid as a peeling agent: a comprehensive chemical review',
+        source: 'Clinical, Cosmetic and Investigational Dermatology',
+        year: '2022'
+      }
+    ],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
     comments: [],
     content: [
-      'Cả BHA (Salicylic Acid) và Retinol đều là những thành phần biến đổi làn da ngoạn mục. Tuy nhiên, việc thoa chồng trực tiếp hai hoạt chất này cùng lúc là sai lầm phổ biến khiến hàng triệu màng da bị cháy rát.',
-      'Giải pháp chuẩn: Sử dụng theo lịch xen kẽ: Tối thứ 2-4-6 dùng BHA nhẹ, Tối thứ 3-5-7 dùng Retinol, và Chủ Nhật chỉ tập trung phục hồi cấp ẩm sâu.'
+      'Cả BHA (Salicylic Acid) và Retinol đều là những hoạt chất có khả năng tái cấu trúc bề mặt da ngoạn mục. Tuy nhiên, việc thoa chồng trực tiếp hai hoạt chất này trong cùng một buổi tối là sai lầm phổ biến khiến hàng rào biểu bì bị phá hủy.',
+      'Nguyên tắc vàng: Sử dụng theo lịch xen kẽ: Tối thứ 2-4-6 dùng BHA nồng độ thấp (1-2%), Tối thứ 3-5-7 dùng Retinol nồng độ khởi đầu (0.2-0.5%), và dành riêng Chủ Nhật chỉ để cấp ẩm phục hồi sâu.'
     ]
   },
   {
@@ -406,11 +552,11 @@ export const mockArticles: Article[] = [
     title: 'Chăm sóc làn da từ bên trong: Chế độ dinh dưỡng khoa học cho làn da sáng khỏe',
     category: 'lifestyle',
     categoryName: 'Phong cách sống',
-    excerpt: 'Mỹ phẩm chỉ tác động 30% lớp biểu bì ngoài cùng; 70% độ rạng rỡ của làn da bắt nguồn từ đường ruột và dinh dưỡng tế bào.',
+    excerpt: 'Mỹ phẩm chỉ tác động lớp biểu bì ngoài cùng; độ rạng rỡ của làn da bắt nguồn mật thiết từ hệ tiêu hóa và dinh dưỡng tế bào.',
     coverImage: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85',
     author: {
       name: 'Thảo My',
-      role: 'Beauty Editor & Dược sĩ Mỹ phẩm',
+      role: 'Dược sĩ & Chuyên viên nghiên cứu sinh học da',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
     },
     date: '24 Tháng 8, 2026',
@@ -418,292 +564,365 @@ export const mockArticles: Article[] = [
     likes: 278,
     views: 2190,
     tags: ['Dinh dưỡng', 'Nội sinh', 'Collagen', 'Trà xanh'],
+    isDemo: true,
+    targetSkinTypes: ['Mọi loại da', 'Da mụn', 'Da lão hóa'],
+    skinConcerns: ['Chống lão hóa & Nếp nhăn', 'Làm sáng & Mờ thâm', 'Mụn & bít tắc'],
+    references: [
+      {
+        title: 'The Gut-Skin Axis: The Importance of Microbiota in Dermatology',
+        source: 'Microorganisms Journal (PubMed)',
+        year: '2023',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/34360341/'
+      },
+      {
+        title: 'Dietary intake, advanced glycation end-products, and skin elasticity',
+        source: 'Journal of Investigative Dermatology',
+        year: '2022'
+      }
+    ],
+    medicalDisclaimer: STANDARD_MEDICAL_DISCLAIMER,
     comments: [],
     content: [
-      'Các nghiên cứu về trục Não - Ruột - Da (Gut-Skin Axis) đã chứng minh tình trạng viêm mạn tính ở đường ruột biểu hiện trực tiếp qua các cơn bùng phát mụn trên mặt.',
-      'Bổ sung polyphenol từ trà xanh, axit béo Omega-3 từ cá béo và hạn chế đường tinh luyện (gây hiện tượng đứt gãy Collagen qua phản ứng Glycation) là bước dưỡng da thông minh nhất bạn có thể làm cho bản thân.'
+      'Các nghiên cứu về trục Não - Ruột - Da (Gut-Skin Axis) đã chứng minh tình trạng mất cân bằng hệ vi sinh vật đường ruột có thể kích hoạt các phản ứng viêm toàn thân, biểu hiện ra các đợt bùng phát mụn trên mặt.',
+      'Bổ sung polyphenol từ trà xanh, axit béo Omega-3 từ cá biển sâu và hạn chế đường tinh luyện (thủ phạm gây phản ứng đứt gãy collagen qua liên kết Glycation) là bước hỗ trợ quan trọng cho mọi phác đồ chăm sóc da.'
     ]
   }
 ];
 
+// Non-commercial Product & Active Ingredient Guide (Phi thương mại, không có giá bán, không link mua hàng)
 export const mockReviews: ReviewProduct[] = [
   {
     id: 'rev-1',
-    name: 'Anthelios UVMune 400 Oil Control Gel-Cream',
-    brand: 'La Roche-Posay',
-    category: 'Kem chống nắng',
-    rating: 4.8,
-    reviewCount: 342,
-    summary: 'Kem chống nắng kiểm soát dầu vượt trội với màng lọc phổ rộng Mexoryl 400 đỉnh cao.',
-    detailedReview: 'Sản phẩm giải quyết triệt để nỗi lo bóng dầu cho khí hậu Việt Nam. Kết cấu mỏng nhẹ, tệp nhanh vào da trong 30 giây mà không để lại vệt trắng hay bết dính. Khả năng kiềm dầu duy trì tốt suốt 5-6 tiếng làm việc.',
-    tags: ['Đáng thử', 'Phù hợp da dầu', 'Được yêu thích'],
+    name: 'Phức hợp Màng lọc chống nắng Mexoryl 400 (Dòng Gel-Cream kiềm dầu)',
+    brand: 'Nghiên cứu công thức quang học La Roche-Posay',
+    category: 'Màng lọc & Kem chống nắng',
+    summary: 'Phân tích cơ chế bảo vệ tia cực tím bước sóng siêu dài (380-400nm) và đặc tính kiểm soát bã nhờn.',
+    detailedReview: 'Công thức ứng dụng màng lọc độc quyền Mexoryl 400 cùng hợp chất hấp thu bã nhờn Airlicium. Kết cấu gel-cream tạo màng ráo nhanh trên da, hạn chế bóng dầu trong môi trường nhiệt đới nhưng cần thao tác thoa dứt khoát để tránh hiện tượng vón màng.',
+    tags: ['Mexoryl 400', 'Quang phổ rộng', 'Không hương liệu', 'Kiểm soát bã nhờn'],
     image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80',
-    skinTypes: ['Da dầu', 'Da hỗn hợp thiên dầu', 'Da mụn'],
-    pros: ['Màng lọc tia cực tím tối tân', 'Khô ráo tức thì', 'Không gây cay mắt', 'Kháng nước tốt'],
-    cons: ['Khô khá nhanh nên cần tán thao tác dứt khoát', 'Giá thành phân khúc cao cấp'],
+    skinTypes: ['Da dầu', 'Da hỗn hợp thiên dầu', 'Da dễ nổi mụn'],
+    keyIngredients: ['Mexoryl 400 (Drometrizole Trisiloxane)', 'Airlicium (Silica Silylate)', 'Nước khoáng nhiệt làm dịu'],
+    usageTips: [
+      'Nên dưỡng ẩm bằng lớp mỏng trước đó 5 phút để tránh xung đột chất tạo màng',
+      'Thoa vỗ nhẹ theo từng vùng nhỏ, không chà xát miết vòng tròn'
+    ],
+    pros: [
+      'Phổ hấp thụ UV bảo vệ đến bước sóng 400nm (vùng tia UVA1 dài gây sạm nám sâu)',
+      'Không chứa cồn khô nồng độ cao gây rát da mụn',
+      'Độ bám kháng nước và mồ hôi tốt'
+    ],
+    cons: [
+      'Khô nhanh trên bề mặt nên cần thao tác tán kem tương đối nhanh tay',
+      'Không phù hợp với người có nền da đang bong tróc mạnh do thiếu ẩm'
+    ],
     texture: 'Gel-cream mịn nhẹ, khô thoáng',
-    verdict: 'Lựa chọn số 1 cho người có làn da dầu mụn cần chống nắng bảo vệ toàn diện.',
-    priceRange: '450.000đ - 520.000đ'
+    verdict: 'Tài liệu tham khảo công thức phù hợp cho người có làn da dầu mụn cần chống nắng quang phổ rộng.',
+    references: [
+      {
+        title: 'Photoprotection beyond 380 nm: Clinical evaluation of a novel UV filter',
+        source: 'Photodermatology, Photoimmunology & Photomedicine',
+        year: '2023'
+      }
+    ],
+    isDemo: true
   },
   {
     id: 'rev-2',
-    name: 'Madagascar Centella Hyalu-Cica Water-Fit Sun Serum SPF50+',
-    brand: 'Skin1004',
-    category: 'Kem chống nắng',
-    rating: 4.9,
-    reviewCount: 489,
-    summary: 'Chất serum mỏng nhẹ như nước, cấp ẩm mọng màng và dịu da nhạy cảm tức thì.',
-    detailedReview: 'Nếu bạn ghét cảm giác nặng mặt của kem chống nắng truyền thống thì đây là vị cứu tinh. Chứa chiết xuất rau má vùng Madagascar kết hợp phức hợp Hyaluronic Acid, lên da êm dịu, tạo hiệu ứng căng bóng tự nhiên.',
-    tags: ['Được yêu thích', 'Phù hợp da nhạy cảm', 'Căng bóng'],
+    name: 'Serum Chống Nắng Làm Dịu Chiết Xuất Rau Má Madagascar (Centella & Hyaluronic)',
+    brand: 'Nghiên cứu công thức Skin1004',
+    category: 'Màng lọc & Kem chống nắng',
+    summary: 'Giải mã công thức kết hợp giữa màng lọc hữu cơ thế hệ mới và chiết xuất thảo mộc làm dịu.',
+    detailedReview: 'Sản phẩm minh họa cho xu hướng kem chống nắng lai dưỡng ẩm. Sử dụng các màng lọc hóa học thế hệ mới (Uvinul A Plus, Tinosorb M, Iscotrizinol) giúp kết cấu mỏng nhẹ tựa giọt nước, không để lại màng trắng bệch.',
+    tags: ['Centella Asiatica', 'Hyaluronic Acid', 'Mỏng nhẹ', 'Làm dịu da'],
     image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
-    skinTypes: ['Da khô', 'Da nhạy cảm', 'Da hỗn hợp'],
-    pros: ['Cảm giác thoa như kem dưỡng nhẹ tênh', 'Không vón cục dưới lớp makeup', 'Dịu đỏ và cấp ẩm sâu'],
-    cons: ['Kiềm dầu mức độ trung bình với da cực dầu'],
-    texture: 'Serum nước mướt mịn, thấm sâu',
-    verdict: 'Tuýp kem chống nắng quốc dân cho phong cách no-makeup và da nhạy cảm.',
-    priceRange: '320.000đ - 380.000đ'
+    skinTypes: ['Da khô', 'Da nhạy cảm', 'Da hỗn hợp thiên khô'],
+    keyIngredients: ['Chiết xuất Rau má Centella Asiatica', 'Hyaluronic Acid đa phân tử', 'Niacinamide'],
+    usageTips: [
+      'Có thể dùng thay thế bước kem dưỡng ban ngày cho da hỗn hợp',
+      'Cần thoa lại sau mỗi 2-3 giờ nếu hoạt động ngoài trời'
+    ],
+    pros: [
+      'Độ ẩm mượt tự nhiên, không gây cảm giác bí bách',
+      'Không gây cay mắt, phù hợp với vùng da quanh mắt',
+      'Độ dung nạp tốt trên làn da nhạy cảm'
+    ],
+    cons: [
+      'Khả năng kiềm dầu chỉ ở mức trung bình với làn da đổ nhiều dầu vùng chữ T',
+      'Không có khả năng chống nước cao cho hoạt động bơi lội'
+    ],
+    texture: 'Serum nước lỏng mịn, thẩm thấu nhanh',
+    verdict: 'Ví dụ tiêu biểu cho dạng chống nắng cấp ẩm dịu nhẹ, hạn chế tối đa nguy cơ kích ứng cho da nhạy cảm.',
+    references: [
+      {
+        title: 'Centella asiatica in cosmetology: active compounds and therapeutic applications',
+        source: 'Postepy Dermatologii i Alergologii',
+        year: '2022'
+      }
+    ],
+    isDemo: true
   },
   {
     id: 'rev-3',
-    name: 'Skin Perfecting 2% BHA Liquid Exfoliant',
-    brand: "Paula's Choice",
-    category: 'Tẩy tế bào chết',
-    rating: 4.7,
-    reviewCount: 620,
-    summary: 'Huyền thoại làm sạch sâu lỗ chân lông, đẩy lùi mụn ẩn và làm mịn màng bề mặt da ráp.',
-    detailedReview: 'Salicylic Acid 2% gốc dầu len lỏi vào sâu từng nang lông để hòa tan bã nhờn cô đặc. Sử dụng đều đặn 2-3 lần/tuần sẽ thấy vùng cánh mũi giảm hẳn sợi bã nhờn và mụn đầu đen.',
-    tags: ['Đáng thử', 'Thu nhỏ lỗ chân lông', 'Được yêu thích'],
-    image: 'https://images.unsplash.com/photo-1608248597359-57e0344d416b?auto=format&fit=crop&w=600&q=80',
-    skinTypes: ['Da dầu', 'Da hỗn hợp', 'Da mụn đầu đen'],
-    pros: ['Hiệu quả mụn ẩn rõ rệt sau 4 tuần', 'Lỗ chân lông thông thoáng', 'Công thức ổn định cao'],
-    cons: ['Cần dưỡng ẩm kỹ để tránh bong tróc', 'Cần làm quen từ tần suất thấp'],
+    name: 'Dung Dịch Salicylic Acid (BHA) 2% Dạng Lỏng (Tẩy Tế Bào Chết Hóa Học)',
+    brand: "Nghiên cứu công thức Paula's Choice",
+    category: 'Tẩy tế bào chết & Hoạt chất',
+    summary: 'Cơ chế thâm nhập gốc dầu để làm sạch bã nhờn cô đặc trong nang lông và giảm bít tắc.',
+    detailedReview: 'Salicylic Acid là beta-hydroxy acid tan trong lipid, cho phép thâm nhập sâu qua màng dầu tự nhiên vào lỗ chân lông. Công thức dạng lỏng với pH từ 3.2 - 3.8 giúp hoạt chất ở dạng tự do hoạt động tối ưu.',
+    tags: ['Salicylic Acid 2%', 'Làm sạch nang lông', 'pH chuẩn', 'Thông thoáng da'],
+    image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=800&q=80',
+    skinTypes: ['Da dầu', 'Da hỗn hợp', 'Da có sợi bã nhờn & mụn ẩn'],
+    keyIngredients: ['Salicylic Acid 2%', 'Chiết xuất Trà xanh Camellia Sinensis', 'Methylpropanediol'],
+    usageTips: [
+      'Bắt đầu với tần suất 1-2 lần/tuần vào buổi tối',
+      'Luôn dưỡng ẩm phục hồi và chống nắng kỹ vào ban ngày'
+    ],
+    pros: [
+      'Hỗ trợ giải phóng nhân mụn đầu đen và sợi bã nhờn hiệu quả',
+      'Cải thiện độ mịn màng bề mặt sừng',
+      'Công thức ổn định không chứa chất tạo mùi'
+    ],
+    cons: [
+      'Có thể gây khô rát hoặc hiện tượng đẩy mụn (purging) trong 2-4 tuần đầu',
+      'Chống chỉ định với người có tiền sử dị ứng Salicylate (như Aspirin)'
+    ],
     texture: 'Dung dịch lỏng trong suốt hơi trơn nhẹ',
-    verdict: 'Biểu tượng kinh điển không thể thiếu nếu bạn muốn dọn sạch mụn ẩn và dầu thừa.',
-    priceRange: '800.000đ - 950.000đ'
+    verdict: 'Hoạt chất tiêu chuẩn vàng trong điều trị bít tắc nang lông, cần sử dụng thận trọng và kiên trì.',
+    references: [
+      {
+        title: 'Salicylic acid peels for the treatment of acne vulgaris in Asian patients',
+        source: 'Dermatologic Surgery Journal',
+        year: '2021'
+      }
+    ],
+    isDemo: true
   },
   {
     id: 'rev-4',
-    name: 'Hydrating Cleanser Barriere Protectrice',
-    brand: 'CeraVe',
-    category: 'Sữa rửa mặt',
-    rating: 4.8,
-    reviewCount: 512,
-    summary: 'Sữa rửa mặt dịu lành chứa 3 loại Ceramide thiết yếu, bảo vệ trọn vẹn màng ẩm.',
-    detailedReview: 'Công nghệ MVE giải phóng dưỡng chất chậm giúp nuôi dưỡng hàng rào da ngay trong lúc làm sạch. Không bọt gắt, không làm khô căng, cực kỳ êm dịu cho những ngày da đang treatment rát buốt.',
-    tags: ['Phục hồi màng ẩm', 'Phù hợp da khô', 'Đáng thử'],
+    name: 'Sữa Rửa Mặt Củng Cố Hàng Rào Lipid Với 3 Loại Ceramide Thiết Yếu',
+    brand: 'Nghiên cứu công thức CeraVe',
+    category: 'Làm sạch & Bảo vệ màng da',
+    summary: 'Phân tích công nghệ phóng thích chậm MVE và vai trò của Ceramide 1, 3, 6-II trong làm sạch.',
+    detailedReview: 'Khác với các chất tẩy rửa chứa xà phòng có độ pH kiềm cao làm phá vỡ màng axit bảo vệ da, công thức này sử dụng chất hoạt động bề mặt dịu nhẹ kết hợp tỷ lệ lipid sinh học tương đồng biểu bì.',
+    tags: ['Ceramides', 'pH 5.5', 'Không bọt gắt', 'Bảo vệ màng ẩm'],
     image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
     skinTypes: ['Da khô', 'Da nhạy cảm', 'Da thường', 'Da sau treatment'],
-    pros: ['Bảo toàn 100% độ ẩm tự nhiên', 'Không hương liệu, cồn khô', 'Dung tích lớn kinh tế'],
-    cons: ['Khả năng làm sạch lớp makeup đậm còn hạn chế, cần tẩy trang trước'],
-    texture: 'Dạng kem lỏng mịn như lotion',
-    verdict: 'Chân ái cho những ai đang đau đầu vì da bị khô rát do sửa rửa mặt thông thường.',
-    priceRange: '350.000đ - 420.000đ'
+    keyIngredients: ['Ceramide NP, AP, EOP', 'Hyaluronic Acid', 'Cholesterol & Phytosphingosine'],
+    usageTips: [
+      'Mát-xa nhẹ nhàng trên da ẩm trong 30-60 giây',
+      'Rửa sạch bằng nước mát hoặc nước ấm nhẹ (không dùng nước nóng)'
+    ],
+    pros: [
+      'Bảo toàn 100% độ ẩm tự nhiên, không gây cảm giác căng rát',
+      'Độ pH chuẩn sinh học 5.5',
+      'Không chứa hương liệu hay cồn khô'
+    ],
+    cons: [
+      'Không thể làm sạch lớp trang điểm đậm hoặc kem chống nắng kháng nước mạnh (cần tẩy trang trước)'
+    ],
+    texture: 'Dạng lotion mềm mịn, không bọt',
+    verdict: 'Giải pháp làm sạch an toàn cho làn da đang bị suy yếu hoặc kích ứng màng lipid.',
+    references: [
+      {
+        title: 'Ceramides and skin function: Clinical perspectives on barrier repair',
+        source: 'American Journal of Clinical Dermatology',
+        year: '2022'
+      }
+    ],
+    isDemo: true
   },
   {
     id: 'rev-5',
-    name: 'DIVE-IN Low Molecule Hyaluronic Acid Serum',
-    brand: 'Torriden',
-    category: 'Serum dưỡng ẩm',
-    rating: 4.9,
-    reviewCount: 390,
-    summary: 'Serum cấp nước 5 tầng Hyaluronic Acid với phân tử siêu nhỏ thẩm thấu cực nhanh.',
-    detailedReview: 'Màu xanh pastel tự nhiên của Malachite Extract làm dịu mắt, kết cấu lỏng nhẹ thấm vào da chỉ sau 10 giây. Không hề dính nhờn rít, tạo độ căng bóng ẩm mượt như ngậm nước cả ngày dài.',
-    tags: ['Cấp ẩm sâu', 'Được yêu thích', 'Làm dịu da'],
+    name: 'Serum Cấp Nước Hyaluronic Acid Đa Tầng Phân Tử & Malachite',
+    brand: 'Nghiên cứu công thức Torriden',
+    category: 'Dưỡng ẩm & Tái cấp nước',
+    summary: 'Cơ chế thẩm thấu phân tầng của 5 kích thước phân tử Hyaluronic Acid vào các lớp biểu bì.',
+    detailedReview: 'Axit Hyaluronic trọng lượng phân tử cao giữ nước trên bề mặt, trong khi các đoạn phân tử cực nhỏ thẩm thấu xuống tầng sâu hơn để duy trì độ trương nở của tế bào sừng.',
+    tags: ['Hyaluronic Acid 5 tầng', 'Làm dịu', 'Phục hồi', 'Dạng lỏng thấm nhanh'],
     image: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=600&q=80',
     skinTypes: ['Mọi loại da', 'Da dầu thiếu nước', 'Da nhạy cảm'],
-    pros: ['Cực kỳ nhẹ thoáng không bí bách', 'Giảm nhiệt độ da tức thì', 'Bảng thành phần sạch'],
-    cons: ['Cần kết hợp kem khóa ẩm ở vùng khí hậu lạnh khô'],
-    texture: 'Nước serum lỏng nhẹ màu xanh ngọc dịu mắt',
-    verdict: 'Serum cấp nước đa năng được yêu thích nhất tại các giải thưởng Beauty Châu Á.',
-    priceRange: '380.000đ - 460.000đ'
+    keyIngredients: ['5 loại phân tử Hyaluronic Acid', 'Chiết xuất khoáng Malachite', 'Allantoin & D-Panthenol'],
+    usageTips: [
+      'Thoa trực tiếp khi nền da còn ẩm sau bước toner',
+      'Luôn dùng kem dưỡng mỏng nhẹ khóa ẩm để tránh hiện tượng hút ẩm ngược'
+    ],
+    pros: [
+      'Thấm sâu nhanh chóng, không nhờn rít hay bí nang lông',
+      'Hỗ trợ hạ nhiệt và làm dịu cơn kích ứng tức thì',
+      'Bảng thành phần tối giản, không hương liệu'
+    ],
+    cons: [
+      'Trong môi trường máy lạnh quá khô hoặc mùa hanh khô, nếu không khóa ẩm kỹ có thể gây cảm giác khô căng bề mặt'
+    ],
+    texture: 'Nước serum lỏng nhẹ màu xanh ngọc tự nhiên',
+    verdict: 'Sản phẩm củng cố khả năng ngậm nước tế bào an toàn cho làn da dầu thiếu nước.',
+    references: [
+      {
+        title: 'Hyaluronic acid: A key molecule in skin aging and hydration',
+        source: 'Dermato-Endocrinology Journal',
+        year: '2021'
+      }
+    ],
+    isDemo: true
   },
   {
     id: 'rev-6',
-    name: 'Supple Preparation Unscented Toner',
-    brand: 'Klairs',
-    category: 'Nước hoa hồng (Toner)',
-    rating: 4.8,
-    reviewCount: 425,
-    summary: 'Nước hoa hồng không mùi, giàu Lipidure và Axit Amin cấp ẩm tức thì sau bước rửa mặt.',
-    detailedReview: 'Phiên bản không mùi (Unscented) loại bỏ hoàn toàn tinh dầu thơm, phù hợp tuyệt đối cho làn da dễ kích ứng nhất. Kết cấu hơi sệt nhẹ cho độ trượt êm ái khi vỗ lên mặt.',
-    tags: ['Không hương liệu', 'Phù hợp da nhạy cảm', 'Lành tính'],
-    image: 'https://images.unsplash.com/photo-1512290900672-1f4a9b5f5439?auto=format&fit=crop&w=600&q=80',
+    name: 'Nước Cân Bằng Không Hương Liệu Cấp Ẩm Thực Vật (Supple Preparation Unscented)',
+    brand: 'Nghiên cứu công thức Klairs',
+    category: 'Nước hoa hồng & Cân bằng pH',
+    summary: 'Phân tích vai trò của Lipidure, Beta-Glucan và Axit Amin trong việc phục hồi độ ẩm sau rửa mặt.',
+    detailedReview: 'Phiên bản loại bỏ hoàn toàn các loại tinh dầu thực vật dễ gây dị ứng (Essential Oils), tập trung vào các chất hút ẩm sinh học lành tính giúp làm mềm lớp tế bào sừng và chuẩn bị cho các bước dưỡng tiếp theo.',
+    tags: ['Không hương liệu', 'Beta-Glucan', 'Cân bằng pH', 'Lành tính'],
+    image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=800&q=80',
     skinTypes: ['Da nhạy cảm', 'Da khô', 'Da hỗn hợp'],
-    pros: ['Làm dịu cơn căng kích tức thì', 'Cân bằng độ pH chuẩn xác', 'Dễ dàng layer nhiều lớp'],
-    cons: ['Thấm hơi lâu hơn toner dạng nước khoáng'],
+    keyIngredients: ['Sodium Hyaluronate', 'Chiết xuất Rau má Centella', 'Beta-Glucan & Lipidure'],
+    usageTips: [
+      'Có thể vỗ nhẹ 2-3 lớp bằng tay để cấp ẩm sâu mà không cần dùng bông cotton chà xát'
+    ],
+    pros: [
+      'Làm dịu cảm giác khô căng sau khi rửa mặt',
+      'Không mùi hương nhân tạo, độ lành tính cao',
+      'Tương thích tốt khi phối hợp cùng các hoạt chất treatment khác'
+    ],
+    cons: [
+      'Kết cấu sánh nhẹ nên thời gian ráo mặt lâu hơn toner dạng xịt khoáng thuần nước'
+    ],
     texture: 'Dung dịch sệt trong suốt, êm mượt',
-    verdict: 'Chai nước cân bằng cơ bản nhưng mang lại cảm giác an tâm tuyệt đối mỗi ngày.',
-    priceRange: '280.000đ - 340.000đ'
+    verdict: 'Bước đệm cấp ẩm cơ bản, an toàn cho làn da dễ kích ứng với hương liệu mỹ phẩm.',
+    references: [
+      {
+        title: 'Beta-glucan in dermatology: Healing, anti-aging and moisturizing mechanisms',
+        source: 'Journal of Cosmetic Dermatology',
+        year: '2022'
+      }
+    ],
+    isDemo: true
   }
 ];
 
 export const mockDiscussions: Discussion[] = [
   {
     id: 'disc-1',
-    title: 'Skincare cho người mới: Xin routine tối giản trị thâm đỏ sau mụn cho da hỗn hợp?',
+    title: 'Skincare cho người mới: Xin lời khuyên về thâm đỏ (PIE) sau mụn cho da hỗn hợp?',
     author: {
       name: 'Phương Linh',
       avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80',
       badge: 'Thành viên mới'
     },
     category: 'Skincare cho người mới',
-    content: 'Chào cả nhà Lumia ạ! Em vừa hết đợt mụn viêm nhưng giờ để lại rất nhiều vết thâm đỏ (PIE) ở 2 bên má. Em đang dùng sữa rửa mặt CeraVe và kem chống nắng rồi, giờ em muốn thêm 1 serum trị thâm thì nên dùng Niacinamide hay Azelaic Acid ạ? Em cảm ơn mọi người nhiều!',
+    content: 'Chào cả nhà Lumia! Em vừa trải qua đợt mụn viêm nhưng giờ để lại rất nhiều vết thâm đỏ (PIE) ở hai bên má. Em đã duy trì làm sạch dịu nhẹ và kem chống nắng rồi, giờ em muốn tìm hiểu thêm về Azelaic Acid hoặc Niacinamide để hỗ trợ co mạch mờ đỏ. Nhờ các bạn chia sẻ kinh nghiệm khoa học với ạ!',
     date: '2 giờ trước',
     repliesCount: 14,
     views: 290,
     likes: 38,
     tags: ['Da hỗn hợp', 'Thâm đỏ PIE', 'Azelaic Acid', 'Niacinamide'],
     isSolved: true,
+    isDemo: true,
     replies: [
       {
         id: 'rep-1',
         authorName: 'Dược sĩ Thu Hà',
         authorAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80',
-        authorBadge: 'Chuyên gia Lumia',
+        authorBadge: 'Chuyên môn Dược học',
         date: '1 giờ trước',
-        content: 'Chào Linh nhé! Với vết thâm đỏ (PIE - do giãn mạch máu vi thể sau viêm), Azelaic Acid nồng độ 10-15% là lựa chọn số 1 vì có tác dụng kháng viêm và co mạch rất tốt. Em có thể dùng kết hợp cùng Niacinamide 4-5% để tăng hiệu quả phục hồi nhé!',
-        likes: 18
+        content: 'Chào bạn Linh! Với thâm đỏ sau mụn (PIE - nguyên nhân từ giãn mao mạch vi thể sau viêm), Azelaic Acid nồng độ 10-15% là hoạt chất được chứng minh lâm sàng có tác dụng kháng viêm và co mạch hiệu quả. Bạn có thể phối hợp thêm Niacinamide 3-4% để củng cố màng da nhé!',
+        likes: 18,
+        isDemo: true
       },
       {
         id: 'rep-2',
         authorName: 'Minh Thư',
         authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
-        authorBadge: 'Skincare Lover',
+        authorBadge: 'Thành viên cộng đồng',
         date: '45 phút trước',
-        content: 'Mình từng bị giống bạn, vote dùng Derma Forte hoặc Skinoren nhé, nhớ chống nắng kỹ là 3-4 tuần thấy mờ hẳn luôn á!',
-        likes: 9
+        content: 'Mình từng bị tình trạng này, điều quan trọng nhất là che chắn chống nắng thật kỹ mỗi sáng vì tia UV làm chậm quá trình tự phục hồi của vi mạch máu.',
+        likes: 9,
+        isDemo: true
       }
     ]
   },
   {
     id: 'disc-2',
-    title: 'Da dầu, mụn: Có ai dùng BHA bị đẩy mụn ồ ạt mà không thấy dừng không?',
+    title: 'Da dầu, mụn: Phân biệt hiện tượng đẩy mụn (Purging) và kích ứng bùng phát (Breakout)?',
     author: {
       name: 'Quang Khải',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
       badge: 'Thành viên tích cực'
     },
     category: 'Da dầu, mụn',
-    content: 'Mình dùng BHA 2% được 6 tuần rồi, tuần dùng 2 lần nhưng mụn mủ vẫn tiếp tục nổi ở những vùng trước đây chưa từng có mụn. Như vậy là đang Purging hay là bị Breakout kích ứng vậy mọi người? Nên dừng hay tiếp tục ạ?',
+    content: 'Mình dùng BHA 2% được 4 tuần, tuần dùng 2 lần nhưng mụn mủ vẫn tiếp tục nổi ở những vùng trước đây chưa từng có nhân mụn. Làm sao để phân biệt chính xác đâu là Purging sinh học và đâu là Breakout do kích ứng vậy mọi người?',
     date: '5 giờ trước',
     repliesCount: 22,
     views: 540,
     likes: 45,
-    tags: ['BHA', 'Purging vs Breakout', 'Da dầu mụn', 'Tư vấn'],
+    tags: ['BHA', 'Purging vs Breakout', 'Da dầu mụn', 'Kiến thức y khoa'],
     isPinned: true,
+    isDemo: true,
     replies: [
       {
         id: 'rep-3',
         authorName: 'Vũ Hải Yến',
         authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80',
-        authorBadge: 'Moderator',
+        authorBadge: 'Biên tập viên Lumia',
         date: '4 giờ trước',
-        content: 'Khải ơi, quy tắc vàng để phân biệt: Nếu mụn nổi ở vùng TRƯỚC ĐÂY CHƯA TỪNG CÓ MỤN và kéo dài quá 6 tuần, đó là BREAKOUT chứ không phải purging. Bạn nên ngưng BHA ngay lập tức và tập trung làm dịu bằng B5/Centella nhé!',
-        likes: 27
+        content: 'Chào Khải! Quy tắc y khoa để phân biệt: Purging chỉ xảy ra ở NHỮNG VÙNG VỐN ĐÃ CÓ MỤN ẨN và thường khô cồi sau 2-4 tuần. Nếu mụn nổi ở vùng da trước đó hoàn toàn mịn màng hoặc kéo dài quá 6 tuần, đó là dấu hiệu của Breakout kích ứng. Bạn nên ngưng BHA ngay và phục hồi màng ẩm.',
+        likes: 27,
+        isDemo: true
       }
     ]
   },
   {
     id: 'disc-3',
-    title: 'Da khô và nhạy cảm: Review kem dưỡng Ceramide phục hồi đỉnh nhất mọi người từng thử?',
+    title: 'Da khô và nhạy cảm: Làm thế nào để duy trì độ ẩm khi thời tiết giao mùa hanh khô?',
     author: {
       name: 'Bảo Ngọc',
       avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80',
       badge: 'Thành viên'
     },
     category: 'Da khô và nhạy cảm',
-    content: 'Mùa thu đông sắp tới da mình khô tróc dữ dội quanh cánh mũi và miệng. Nhờ mọi người tư vấn hũ kem dưỡng phục hồi chân ái không chứa cồn hay hương liệu với ạ!',
+    content: 'Cứ đến mùa hanh khô là vùng khóe miệng và cánh mũi của mình bị bong vảy trắng và rát khi rửa mặt. Xin kinh nghiệm kết hợp dầu dưỡng thực vật như Squalane cùng kem Ceramide của các bạn trong nhóm!',
     date: '1 ngày trước',
     repliesCount: 19,
     views: 410,
     likes: 31,
-    tags: ['Da khô', 'Ceramide', 'Dưỡng ẩm', 'Mùa đông'],
+    tags: ['Da khô', 'Ceramide', 'Squalane', 'Khí hậu hanh khô'],
+    isDemo: true,
     replies: []
   },
   {
     id: 'disc-4',
-    title: 'Mỹ phẩm makeup: Tip đánh nền mỏng mịn không mốc cho da dầu nhiều lỗ chân lông?',
-    author: {
-      name: 'Trang Nguyễn',
-      avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80',
-      badge: 'Beauty Creator'
-    },
-    category: 'Mỹ phẩm makeup',
-    content: 'Cứ đánh kem nền hoặc cushion được 2 tiếng là mũi mình bị đọng phấn vào lỗ chân lông trắng xóa. Mình đã dưỡng ẩm và dùng kem lót kiềm dầu rồi mà vẫn bị. Có bí quyết gì xử lý không các nàng?',
-    date: '2 ngày trước',
-    repliesCount: 16,
-    views: 380,
-    likes: 29,
-    tags: ['Makeup', 'Đánh nền', 'Lỗ chân lông to', 'Cushion'],
-    replies: []
-  },
-  {
-    id: 'disc-5',
-    title: 'Review sản phẩm: Có bạn nào thử kem chống nắng Skin1004 mới chưa?',
-    author: {
-      name: 'Hà My',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
-      badge: 'Thành viên mới'
-    },
-    category: 'Review sản phẩm',
-    content: 'Thấy rần rần trên các diễn đàn làm đẹp, chất serum lỏng mướt. Không biết có nâng tông trắng bệch không ạ? Da ngăm dùng được không?',
-    date: '3 ngày trước',
-    repliesCount: 25,
-    views: 620,
-    likes: 54,
-    tags: ['Skin1004', 'Review', 'Kem chống nắng', 'Da ngăm'],
-    replies: []
-  },
-  {
-    id: 'disc-6',
     title: 'Thành phần mỹ phẩm: Peptide có thực sự thay thế được Retinol trong chống lão hóa?',
     author: {
       name: 'Thanh Hương',
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80',
-      badge: 'Thành viên VIP'
+      badge: 'Thành viên'
     },
     category: 'Thành phần mỹ phẩm',
-    content: 'Mình đang mang thai nên phải ngưng hoàn toàn Retinoids. Nghe nói Matrixyl 3000 và Đồng Peptide (Copper Tripeptide-1) an toàn cho mẹ bầu và chống nhăn tốt. Có ai trải nghiệm thực tế chưa cho mình xin review với ạ!',
-    date: '4 ngày trước',
+    content: 'Mình đang mang thai nên phải ngưng hoàn toàn các phái sinh Retinoids. Nghe nói các chuỗi Peptide (như Đồng Peptide Copper Tripeptide-1 và Matrixyl) an toàn cho mẹ bầu và hỗ trợ tăng sinh collagen. Có ai nghiên cứu tài liệu lâm sàng về vấn đề này chưa ạ?',
+    date: '2 ngày trước',
     repliesCount: 18,
     views: 470,
     likes: 41,
-    tags: ['Peptide', 'Chống lão hóa', 'Mẹ bầu', 'Retinol thay thế'],
+    tags: ['Peptide', 'Chống lão hóa', 'Mẹ bầu an toàn', 'Retinol thay thế'],
+    isDemo: true,
     replies: []
   },
   {
-    id: 'disc-7',
-    title: 'Chăm sóc tóc: Routine phục hồi tóc tẩy xơ rối và da đầu dầu bết sau 1 ngày',
-    author: {
-      name: 'Yến Nhi',
-      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80',
-      badge: 'Thành viên'
-    },
-    category: 'Chăm sóc tóc',
-    content: 'Da đầu mình siêu nhiều dầu nhưng ngọn tóc tẩy lại khô như rơm. Đổi sang dầu gội kiềm dầu thì ngọn gãy rụng, dùng dầu dưỡng thì da đầu bết dí. Cứu mình với!',
-    date: '5 ngày trước',
-    repliesCount: 11,
-    views: 310,
-    likes: 22,
-    tags: ['Chăm sóc tóc', 'Tóc tẩy', 'Da đầu dầu'],
-    replies: []
-  },
-  {
-    id: 'disc-8',
-    title: 'Kinh nghiệm làm đẹp: Thói quen nhỏ nhưng thay đổi hoàn toàn làn da của mình',
+    id: 'disc-5',
+    title: 'Kinh nghiệm chăm sóc: Những thói quen đơn giản giúp giảm bít tắc mụn hàng ngày',
     author: {
       name: 'Hải An',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80',
-      badge: 'Skincare Lover'
+      badge: 'Thành viên chia sẻ'
     },
     category: 'Kinh nghiệm làm đẹp',
-    content: 'Sau 4 năm vật lộn với mụn bọc, điều giúp da mình cải thiện 80% không phải serum triệu bạc mà là: Giặt vỏ gối 3 ngày/lần, không bao giờ đưa tay lên mặt sờ nặn, và uống đủ 2.5 lít nước ấm mỗi ngày. Muốn chia sẻ động lực đến các bạn đang nản lòng!',
-    date: '1 tuần trước',
+    content: 'Sau nhiều năm cải thiện mụn, mình nhận ra mỹ phẩm chỉ đóng góp một phần. 3 thói quen sinh hoạt tạo nên sự thay đổi lớn: Giặt vỏ gối bằng nước nóng 2 lần/tuần, vệ sinh màn hình điện thoại bằng cồn 70 độ mỗi tối, và tuyệt đối không sờ tay lên cằm khi làm việc.',
+    date: '3 ngày trước',
     repliesCount: 34,
     views: 890,
     likes: 96,
-    tags: ['Thói quen tốt', 'Động lực', 'Trị mụn', 'Lối sống đẹp'],
+    tags: ['Thói quen tốt', 'Vệ sinh da', 'Trị mụn', 'Chia sẻ chân thật'],
     isPinned: true,
+    isDemo: true,
     replies: []
   }
 ];
@@ -719,18 +938,10 @@ export const mockNotifications: NotificationItem[] = [
   },
   {
     id: 'notif-2',
-    title: 'Bài viết nổi bật tuần',
-    message: 'Bài viết "5 bước skincare cơ bản" vừa đạt mốc 3,500 lượt đọc.',
+    title: 'Tài liệu kiến thức mới',
+    message: 'Bài viết "5 bước skincare cơ bản" đã được cập nhật thêm nguồn y khoa từ AAD.',
     time: '2 giờ trước',
     read: false,
     type: 'article'
-  },
-  {
-    id: 'notif-3',
-    title: 'Đánh giá mới',
-    message: 'Kem chống nắng La Roche-Posay Anthelios vừa có thêm 12 đánh giá mới.',
-    time: '1 ngày trước',
-    read: true,
-    type: 'comment'
   }
 ];

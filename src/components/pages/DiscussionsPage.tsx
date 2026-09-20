@@ -280,14 +280,19 @@ export const DiscussionsPage: React.FC<DiscussionsPageProps> = ({
         {/* Header Title */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#935A51] bg-[#F9ECE7] px-3.5 py-1 rounded-full">
-              Diễn đàn làm đẹp
-            </span>
-            <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#341F1A] mt-2">
-              Cộng đồng Lumia
+            <div className="inline-flex items-center gap-2 mb-2">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#935A51] bg-[#F9ECE7] px-3.5 py-1 rounded-full">
+                Diễn đàn thảo luận
+              </span>
+              <span className="text-[11px] font-semibold text-[#824E46] bg-[#FCEBE7] px-2.5 py-0.5 rounded-full border border-[#EACEC8]">
+                Dữ liệu bài viết mẫu
+              </span>
+            </div>
+            <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#341F1A]">
+              Không gian cộng đồng Lumia
             </h1>
             <p className="text-sm sm:text-base text-[#6E5853] mt-1">
-              Không gian hỏi đáp chân thành, thảo luận đa chiều về chăm sóc da, mỹ phẩm và các vấn đề biểu bì.
+              Không gian hỏi đáp chân thành, thảo luận đa chiều về chăm sóc da, phục hồi hàng rào màng biểu bì dựa trên nền tảng y khoa.
             </p>
           </div>
 
@@ -297,7 +302,7 @@ export const DiscussionsPage: React.FC<DiscussionsPageProps> = ({
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white bg-[#A85B52] hover:bg-[#91463D] shadow-sm hover:shadow-md transition-all shrink-0"
           >
             <PlusCircle className="w-4 h-4" />
-            <span>+ Tạo thảo luận</span>
+            <span>+ Tạo câu hỏi / thảo luận</span>
           </button>
         </div>
 

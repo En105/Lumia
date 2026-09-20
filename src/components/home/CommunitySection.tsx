@@ -43,14 +43,19 @@ export const CommunitySection: React.FC<CommunitySectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center space-y-3 mb-10">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#935A51] bg-[#F9ECE7] px-3.5 py-1 rounded-full">
-            Diễn đàn mở
-          </span>
+          <div className="inline-flex items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#935A51] bg-[#F9ECE7] px-3.5 py-1 rounded-full">
+              Diễn đàn trao đổi
+            </span>
+            <span className="text-[11px] font-semibold text-[#824E46] bg-[#FCEBE7] px-2.5 py-0.5 rounded-full border border-[#EACEC8]">
+              Dữ liệu mẫu minh họa
+            </span>
+          </div>
           <h2 className="font-serif-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#341F1A]">
-            Cộng đồng Lumia
+            Không gian thảo luận cộng đồng
           </h2>
           <p className="text-base text-[#6E5853] leading-relaxed">
-            Bạn đang gặp vấn đề gì với làn da? Hãy đặt câu hỏi và cùng Lumia tìm kiếm câu trả lời.
+            Nơi chia sẻ trải nghiệm thực tế, hỏi đáp về phục hồi làn da và thảo luận văn minh dựa trên kiến thức khoa học.
           </p>
 
           {/* Action CTAs */}

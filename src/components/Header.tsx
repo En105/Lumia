@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'home', label: 'Trang chủ' },
     { id: 'articles', label: 'Bài viết' },
     { id: 'skin-knowledge', label: 'Kiến thức làn da' },
-    { id: 'reviews', label: 'Review mỹ phẩm' },
+    { id: 'reviews', label: 'Phân tích hoạt chất' },
     { id: 'discussions', label: 'Thảo luận' },
     { id: 'about', label: 'Về Lumia' },
     { id: 'contact', label: 'Liên hệ' },

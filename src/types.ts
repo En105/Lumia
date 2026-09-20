@@ -6,7 +6,9 @@ export type NavPage =
   | 'reviews' 
   | 'discussions' 
   | 'about' 
-  | 'contact';
+  | 'contact'
+  | 'privacy'
+  | 'terms';
 
 export type ArticleCategory = 
   | 'all' 
@@ -17,6 +19,13 @@ export type ArticleCategory =
   | 'tips' 
   | 'trends' 
   | 'lifestyle';
+
+export interface ReferenceItem {
+  title: string;
+  source: string;
+  year?: string;
+  url?: string;
+}
 
 export interface Author {
   name: string;
@@ -33,6 +42,7 @@ export interface Comment {
   content: string;
   likes: number;
   userLiked?: boolean;
+  isDemo?: boolean;
 }
 
 export interface Article {
@@ -55,6 +65,11 @@ export interface Article {
   keyTakeaways?: string[];
   highlightQuote?: string;
   relatedIds?: string[];
+  references?: ReferenceItem[];
+  medicalDisclaimer?: string;
+  targetSkinTypes?: string[];
+  skinConcerns?: string[];
+  isDemo?: boolean;
 }
 
 export interface SkinType {
@@ -77,8 +92,8 @@ export interface ReviewProduct {
   name: string;
   brand: string;
   category: string;
-  rating: number;
-  reviewCount: number;
+  rating?: number;
+  reviewCount?: number;
   summary: string;
   detailedReview: string;
   tags: string[];
@@ -88,7 +103,11 @@ export interface ReviewProduct {
   cons: string[];
   texture: string;
   verdict: string;
-  priceRange: string;
+  priceRange?: string;
+  keyIngredients?: string[];
+  usageTips?: string[];
+  references?: ReferenceItem[];
+  isDemo?: boolean;
 }
 
 export interface DiscussionReply {
@@ -100,6 +119,7 @@ export interface DiscussionReply {
   content: string;
   likes: number;
   userLiked?: boolean;
+  isDemo?: boolean;
 }
 
 export interface Discussion {
@@ -121,6 +141,7 @@ export interface Discussion {
   isSolved?: boolean;
   isPinned?: boolean;
   replies: DiscussionReply[];
+  isDemo?: boolean;
 }
 
 export interface NotificationItem {

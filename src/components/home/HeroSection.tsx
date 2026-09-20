@@ -94,19 +94,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </span>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="pt-6 border-t border-[#EFE1DB] grid grid-cols-3 gap-4 max-w-lg">
-              <div>
-                <div className="text-xl sm:text-2xl font-bold font-serif-display text-[#3E2723]">250+</div>
-                <div className="text-xs text-[#7D6762] mt-0.5">Bài viết chuyên sâu</div>
+            {/* Genuine Educational & Ethical Indicators */}
+            <div className="pt-6 border-t border-[#EFE1DB] grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl">
+              <div className="bg-white/60 p-3 rounded-2xl border border-[#EDE1DB]">
+                <div className="text-sm font-bold font-serif-display text-[#3E2723] flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#3E8B57]" />
+                  <span>Phi thương mại</span>
+                </div>
+                <div className="text-[11px] text-[#7D6762] mt-0.5">100% không quảng cáo, không bán hàng</div>
               </div>
-              <div>
-                <div className="text-xl sm:text-2xl font-bold font-serif-display text-[#3E2723]">18.5k+</div>
-                <div className="text-xs text-[#7D6762] mt-0.5">Thành viên thảo luận</div>
+              <div className="bg-white/60 p-3 rounded-2xl border border-[#EDE1DB]">
+                <div className="text-sm font-bold font-serif-display text-[#3E2723] flex items-center gap-1.5">
+                  <BookOpen className="w-4 h-4 text-[#A85B52]" />
+                  <span>Dẫn nguồn Y khoa</span>
+                </div>
+                <div className="text-[11px] text-[#7D6762] mt-0.5">Tài liệu từ AAD, PubMed & WHO</div>
               </div>
-              <div>
-                <div className="text-xl sm:text-2xl font-bold font-serif-display text-[#3E2723]">100%</div>
-                <div className="text-xs text-[#7D6762] mt-0.5">Đánh giá khách quan</div>
+              <div className="bg-white/60 p-3 rounded-2xl border border-[#EDE1DB]">
+                <div className="text-sm font-bold font-serif-display text-[#3E2723] flex items-center gap-1.5">
+                  <Heart className="w-4 h-4 text-[#B85C50]" />
+                  <span>Cộng đồng mở</span>
+                </div>
+                <div className="text-[11px] text-[#7D6762] mt-0.5">Chia sẻ trải nghiệm dưỡng da thực tế</div>
               </div>
             </div>
           </div>
@@ -133,15 +142,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
               </div>
 
-              {/* Floating Aesthetic Card 1: Review rating badge */}
+              {/* Floating Aesthetic Card 1: Transparency badge */}
               <div className="absolute -top-4 -left-4 sm:-left-8 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-lg border border-[#F2E5E0] max-w-[200px] animate-in fade-in slide-in-from-bottom-2">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-[#FCEBE7] flex items-center justify-center text-[#934E45]">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-bold text-[#3E2723]">Review thật 100%</p>
-                    <p className="text-[10px] text-[#7E6964]">Không quảng cáo ẩn</p>
+                    <p className="text-[11px] font-bold text-[#3E2723]">Kiến thức minh bạch</p>
+                    <p className="text-[10px] text-[#7E6964]">0% seeding quảng cáo</p>
                   </div>
                 </div>
               </div>

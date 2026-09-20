@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
@@ -19,6 +19,8 @@ import { ReviewsPage } from './components/pages/ReviewsPage';
 import { DiscussionsPage } from './components/pages/DiscussionsPage';
 import { AboutPage } from './components/pages/AboutPage';
 import { ContactPage } from './components/pages/ContactPage';
+import { PrivacyPolicyPage } from './components/pages/PrivacyPolicyPage';
+import { TermsPage } from './components/pages/TermsPage';
 
 // Modals
 import { ReviewDetailModal } from './components/modals/ReviewDetailModal';
@@ -32,10 +34,11 @@ import {
   mockArticles, 
   mockSkinTypes, 
   mockReviews, 
-  mockDiscussions,
-  mockNotifications
+  mockDiscussions, 
+  mockNotifications 
 } from './data/mockData';
 import { Article, ReviewProduct, SkinType, Discussion, DiscussionReply, NavPage, NotificationItem } from './types';
+import { trackPageView, trackEvent } from './utils/analytics';
 
 export default function App() {
   // Navigation State
@@ -60,16 +63,95 @@ export default function App() {
   const [isCreateDiscussionOpen, setIsCreateDiscussionOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // Scroll to top on page change
+  // Hash-based URL router parser
+  const handleRouteFromHash = useCallback(() => {
+    const hash = window.location.hash || '#/';
+    
+    // Check for article detail with individual slug: #/bai-viet/:slug
+    if (hash.startsWith('#/bai-viet/')) {
+      const slug = hash.replace('#/bai-viet/', '').trim();
+      const found = articles.find((a) => a.slug === slug);
+      if (found) {
+        setSelectedArticle(found);
+        setCurrentPage('article-detail');
+        trackPageView(found.title, `#/bai-viet/${found.slug}`);
+        return;
+      }
+    }
+
+    if (hash === '#/bai-viet') {
+      setCurrentPage('articles');
+      trackPageView('Kho bài viết khoa học - Lumia', '#/bai-viet');
+    } else if (hash === '#/loai-da') {
+      setCurrentPage('skin-knowledge');
+      trackPageView('Kiến thức các loại da - Lumia', '#/loai-da');
+    } else if (hash === '#/hoat-chat' || hash === '#/danh-gia' || hash === '#/reviews') {
+      setCurrentPage('reviews');
+      trackPageView('Phân tích hoạt chất & sản phẩm - Lumia', '#/hoat-chat');
+    } else if (hash === '#/cong-dong' || hash === '#/thao-luan') {
+      setCurrentPage('discussions');
+      trackPageView('Diễn đàn thảo luận cộng đồng - Lumia', '#/cong-dong');
+    } else if (hash === '#/ve-lumia') {
+      setCurrentPage('about');
+      trackPageView('Về dự án Lumia - Lumia', '#/ve-lumia');
+    } else if (hash === '#/lien-he') {
+      setCurrentPage('contact');
+      trackPageView('Liên hệ & Góp ý dự án - Lumia', '#/lien-he');
+    } else if (hash === '#/chinh-sach-bao-mat') {
+      setCurrentPage('privacy');
+      trackPageView('Chính sách quyền riêng tư - Lumia', '#/chinh-sach-bao-mat');
+    } else if (hash === '#/dieu-khoan-su-dung') {
+      setCurrentPage('terms');
+      trackPageView('Điều khoản sử dụng - Lumia', '#/dieu-khoan-su-dung');
+    } else {
+      setCurrentPage('home');
+      trackPageView('Trang chủ - Lumia Beauty', '#/');
+    }
+  }, [articles]);
+
+  // Listen to browser hash changes (Back/Forward navigation & URL direct load)
+  useEffect(() => {
+    handleRouteFromHash();
+    const onHashChange = () => {
+      handleRouteFromHash();
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, [handleRouteFromHash]);
+
+  // Programmatic navigation handler that updates hash & URL
   const navigateTo = (page: NavPage) => {
-    setCurrentPage(page);
+    const routeHashMap: Record<NavPage, string> = {
+      'home': '#/',
+      'articles': '#/bai-viet',
+      'article-detail': selectedArticle ? `#/bai-viet/${selectedArticle.slug}` : '#/bai-viet',
+      'skin-knowledge': '#/loai-da',
+      'reviews': '#/hoat-chat',
+      'discussions': '#/cong-dong',
+      'about': '#/ve-lumia',
+      'contact': '#/lien-he',
+      'privacy': '#/chinh-sach-bao-mat',
+      'terms': '#/dieu-khoan-su-dung',
+    };
+
+    const targetHash = routeHashMap[page] || '#/';
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash;
+    } else {
+      handleRouteFromHash();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Article selection handler
+  // Article selection handler with unique slug URL
   const handleSelectArticle = (article: Article) => {
     setSelectedArticle(article);
-    setCurrentPage('article-detail');
+    window.location.hash = `#/bai-viet/${article.slug}`;
+    trackEvent('select_article', {
+      article_id: article.id,
+      slug: article.slug,
+      title: article.title,
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -78,11 +160,16 @@ export default function App() {
     if (e) e.stopPropagation();
     setLikedArticleIds((prev) => {
       const next = new Set(prev);
+      const isLiking = !next.has(articleId);
       if (next.has(articleId)) {
         next.delete(articleId);
       } else {
         next.add(articleId);
       }
+      trackEvent('toggle_like_article', {
+        article_id: articleId,
+        action: isLiking ? 'like' : 'unlike',
+      });
       return next;
     });
   };
@@ -115,6 +202,10 @@ export default function App() {
   // Add new discussion
   const handleCreateDiscussion = (newDiscussion: Discussion) => {
     setDiscussions([newDiscussion, ...discussions]);
+    trackEvent('create_discussion', {
+      title: newDiscussion.title,
+      category: newDiscussion.category,
+    });
     navigateTo('discussions');
   };
 
@@ -132,6 +223,9 @@ export default function App() {
         return d;
       })
     );
+    trackEvent('reply_discussion', {
+      discussion_id: discussionId,
+    });
   };
 
   return (
@@ -189,7 +283,7 @@ export default function App() {
               onViewAllSkinKnowledge={() => navigateTo('skin-knowledge')}
             />
 
-            {/* 5. Product Reviews */}
+            {/* 5. Product Reviews / Ingredient Analysis */}
             <ReviewsSection
               reviews={reviews}
               onSelectReview={(product) => setSelectedReviewProduct(product)}
@@ -248,7 +342,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Dedicated Reviews Page */}
+        {/* Dedicated Reviews & Ingredient Analysis Page */}
         {currentPage === 'reviews' && (
           <div className="animate-in fade-in duration-200">
             <ReviewsPage
@@ -283,10 +377,24 @@ export default function App() {
             <ContactPage />
           </div>
         )}
+
+        {/* Dedicated Privacy Policy Page */}
+        {currentPage === 'privacy' && (
+          <div className="animate-in fade-in duration-200">
+            <PrivacyPolicyPage onNavigate={navigateTo} />
+          </div>
+        )}
+
+        {/* Dedicated Terms of Service Page */}
+        {currentPage === 'terms' && (
+          <div className="animate-in fade-in duration-200">
+            <TermsPage onNavigate={navigateTo} />
+          </div>
+        )}
       </main>
 
       {/* Global Footer */}
-      <Footer onNavigate={navigateTo} />
+      <Footer onNavigate={navigateTo} onOpenCreateDiscussion={() => setIsCreateDiscussionOpen(true)} />
 
       {/* Product Review Detail Modal */}
       <ReviewDetailModal

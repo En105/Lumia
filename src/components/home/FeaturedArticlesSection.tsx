@@ -64,6 +64,14 @@ export const FeaturedArticlesSection: React.FC<FeaturedArticlesSectionProps> = (
                     <img
                       src={article.coverImage}
                       alt={article.title}
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.triedFallback) {
+                          target.dataset.triedFallback = 'true';
+                          target.src = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=85';
+                        }
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                       loading="lazy"
                     />

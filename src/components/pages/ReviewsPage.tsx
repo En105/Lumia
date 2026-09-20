@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Star, Filter, ArrowRight, ShieldCheck, Tag } from 'lucide-react';
+import { Search, Star, Filter, ArrowRight, ShieldCheck, Sparkles, BookOpen, AlertCircle } from 'lucide-react';
 import { ReviewProduct } from '../../types';
+import { trackEvent } from '../../utils/analytics';
 
 interface ReviewsPageProps {
   reviews: ReviewProduct[];
@@ -12,18 +13,18 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
-    { id: 'all', label: 'Tất cả sản phẩm' },
-    { id: 'Kem chống nắng', label: 'Kem chống nắng' },
-    { id: 'Serum dưỡng ẩm', label: 'Serum dưỡng ẩm' },
-    { id: 'Tẩy tế bào chết', label: 'Tẩy tế bào chết' },
-    { id: 'Sữa rửa mặt', label: 'Sữa rửa mặt' },
-    { id: 'Nước hoa hồng (Toner)', label: 'Nước hoa hồng' },
+    { id: 'all', label: 'Tất cả nhóm hoạt chất' },
+    { id: 'Màng lọc & Kem chống nắng', label: 'Kem chống nắng' },
+    { id: 'Dưỡng ẩm & Tái cấp nước', label: 'Serum & Dưỡng ẩm' },
+    { id: 'Tẩy tế bào chết & Hoạt chất', label: 'Tẩy tế bào chết' },
+    { id: 'Làm sạch & Bảo vệ màng da', label: 'Làm sạch da' },
+    { id: 'Nước hoa hồng & Cân bằng pH', label: 'Nước hoa hồng' },
   ];
 
   const filteredReviews = useMemo(() => {
     const safeList = reviews || [];
     return safeList.filter((item) => {
-      const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+      const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory || item.category.includes(selectedCategory);
       const matchesSearch = 
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -33,19 +34,41 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
     });
   }, [reviews, selectedCategory, searchQuery]);
 
+  const handleProductClick = (product: ReviewProduct) => {
+    trackEvent('view_review_product', {
+      product_id: product.id,
+      product_name: product.name,
+      category: product.category,
+    });
+    onSelectReview(product);
+  };
+
   return (
     <div className="bg-[#FCFAF8] min-h-screen py-10 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center space-y-3 mb-10">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#935A51] bg-[#F9ECE7] px-3.5 py-1 rounded-full">
-            Review minh bạch
-          </span>
+          <div className="inline-flex items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#935A51] bg-[#F9ECE7] px-3.5 py-1 rounded-full">
+              Thư viện phân tích thành phần
+            </span>
+            <span className="text-[11px] font-semibold text-[#824E46] bg-[#FCEBE7] px-2.5 py-0.5 rounded-full border border-[#EACEC8]">
+              Dữ liệu mẫu học thuật
+            </span>
+          </div>
           <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#341F1A]">
-            Góc review chân thật
+            Cẩm nang hoạt chất & sản phẩm tiêu biểu
           </h1>
           <p className="text-sm sm:text-base text-[#6E5853] leading-relaxed">
-            Nơi tổng hợp những đánh giá chi tiết, phân tích công thức và trải nghiệm thực tế trên nhiều nền da khác nhau. Lumia cam kết không quảng cáo trá hình.
+            Phân tích chuyên sâu về cơ chế tác động sinh học, màng lọc quang học, độ dung nạp và lưu ý an toàn. Lumia hoạt động phi thương mại: không hiển thị giá bán, không chèn link tiếp thị liên kết (affiliate), không bán hàng trực tuyến.
+          </p>
+        </div>
+
+        {/* Ethical disclaimer banner */}
+        <div className="mb-8 p-4 rounded-2xl bg-[#FAF1ED] border border-[#E8D4CC] flex items-start gap-3 text-xs text-[#6A4740]">
+          <ShieldCheck className="w-5 h-5 text-[#348A54] shrink-0 mt-0.5" />
+          <p>
+            <strong>Cam kết phi thương mại 100%:</strong> Các sản phẩm dưới đây là dữ liệu mẫu đại diện cho các nhóm công thức khoa học phổ biến, được phân tích dựa trên y văn độc lập nhằm giúp bạn đọc hiểu về thành phần INCI, không nhằm mục đích bán hàng hay gợi ý mua sắm.
           </p>
         </div>
 
@@ -58,7 +81,7 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tìm kiếm theo tên sản phẩm, thương hiệu (La Roche-Posay, Skin1004, Paula's Choice, Torriden...)"
+              placeholder="Tìm kiếm theo tên sản phẩm hoặc hoạt chất (Mexoryl, Centella, BHA, Ceramide, Hyaluronic...)"
               className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#FCFAF8] border border-[#ECD9D2] text-sm text-[#341F1A] placeholder:text-[#A38E89] focus:outline-none focus:ring-2 focus:ring-[#A85B52]"
             />
           </div>
@@ -81,8 +104,9 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
         </div>
 
         {/* Results Counter */}
-        <div className="text-xs text-[#7A635E] mb-6">
-          Hiển thị <strong>{filteredReviews.length}</strong> sản phẩm đã kiểm nghiệm
+        <div className="text-xs text-[#7A635E] mb-6 flex items-center justify-between">
+          <span>Hiển thị <strong>{filteredReviews.length}</strong> công thức phân tích (Dữ liệu mẫu)</span>
+          <span className="text-[11px] text-[#8C5248] italic">Phi thương mại • Không giá bán</span>
         </div>
 
         {/* Products Grid */}
@@ -91,7 +115,7 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
             <div
               key={product.id}
               id={`review-item-${product.id}`}
-              onClick={() => onSelectReview(product)}
+              onClick={() => handleProductClick(product)}
               className="group bg-white rounded-3xl border border-[#EDE1DB] overflow-hidden shadow-xs hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer"
             >
               <div>
@@ -100,6 +124,14 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
                   <img
                     src={product.image}
                     alt={product.name}
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.dataset.triedFallback) {
+                        target.dataset.triedFallback = 'true';
+                        target.src = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80';
+                      }
+                    }}
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500 ease-out"
                     loading="lazy"
                   />
@@ -114,8 +146,8 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
                     <span className="text-xs font-bold text-[#96584F] tracking-wide uppercase">
                       {product.brand}
                     </span>
-                    <span className="text-xs text-[#7A635E] font-medium">
-                      {product.priceRange}
+                    <span className="text-[10px] font-semibold text-[#2E7D32] bg-[#EAF5EE] px-2.5 py-0.5 rounded-full">
+                      Dữ liệu mẫu
                     </span>
                   </div>
 
@@ -123,56 +155,29 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ reviews = [], onSelect
                     {product.name}
                   </h3>
 
-                  {/* Rating */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center text-[#E5A83B]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${
-                            i < Math.floor(product.rating)
-                              ? 'fill-current text-[#E5A83B]'
-                              : 'text-gray-300'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-xs font-bold text-[#3E2723]">
-                      {product.rating} / 5.0
-                    </span>
-                    <span className="text-xs text-[#8C7672]">
-                      ({product.reviewCount} đánh giá)
-                    </span>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-[#6F5A55] leading-relaxed line-clamp-2 italic">
-                    "{product.summary}"
+                  {/* Summary */}
+                  <p className="text-xs text-[#6F5A55] leading-relaxed line-clamp-2">
+                    {product.summary}
                   </p>
 
-                  {/* Tags */}
+                  {/* Skin Types compatibility */}
                   <div className="flex flex-wrap gap-1.5 pt-1">
-                    {product.tags.map((tag, i) => (
+                    {product.skinTypes.map((st, i) => (
                       <span
                         key={i}
-                        className={`text-[10px] px-2.5 py-0.5 rounded-full font-medium ${
-                          tag === 'Đáng thử'
-                            ? 'bg-[#FCEBE7] text-[#91463D]'
-                            : tag === 'Phù hợp da dầu'
-                            ? 'bg-[#EBF3EF] text-[#366847]'
-                            : 'bg-[#F5EDE8] text-[#73524B]'
-                        }`}
+                        className="text-[10px] px-2 py-0.5 rounded-md font-medium bg-[#FAF0EB] text-[#7A4B43]"
                       >
-                        {tag}
+                        {st}
                       </span>
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* Bottom Card Footer */}
+              {/* Card Footer */}
               <div className="p-6 pt-0">
                 <div className="pt-3 border-t border-[#F5EBE6] flex items-center justify-between text-xs font-semibold text-[#8C5248] group-hover:text-[#63332B]">
-                  <span>Xem phân tích chi tiết & pros/cons</span>
+                  <span>Xem phân tích chi tiết</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>

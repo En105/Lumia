@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { 
   ArrowLeft, Clock, Eye, Heart, Share2, MessageSquare, Check, 
-  Bookmark, Sparkles, Send, Quote, ChevronRight 
+  Bookmark, Sparkles, Send, Quote, ChevronRight, AlertTriangle, BookOpen, ExternalLink, ShieldCheck 
 } from 'lucide-react';
 import { Article, Comment, NavPage } from '../../types';
+import { trackEvent } from '../../utils/analytics';
 
 interface ArticleDetailPageProps {
   article: Article;
@@ -34,10 +35,16 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
     .filter(a => a && a.id !== article.id && (a.category === article.category || (article.relatedIds && article.relatedIds.includes(a.id))))
     .slice(0, 3);
 
+  const articleCanonicalUrl = `${window.location.origin}/#/bai-viet/${article.slug}`;
+
   const handleShare = () => {
-    navigator.clipboard?.writeText(window.location.href);
+    navigator.clipboard?.writeText(articleCanonicalUrl);
     setCopiedToast(true);
-    setTimeout(() => setCopiedToast(false), 3000);
+    trackEvent('share_article', {
+      article_slug: article.slug,
+      article_title: article.title,
+    });
+    setTimeout(() => setCopiedToast(false), 3500);
   };
 
   const handleCommentSubmit = (e: React.FormEvent) => {
@@ -51,14 +58,21 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
       date: 'Vừa xong',
       content: commentText.trim(),
       likes: 1,
-      userLiked: true
+      userLiked: true,
+      isDemo: true
     };
 
     setLocalComments([newComment, ...localComments]);
     setCommentText('');
     setCommentSuccess(true);
+    trackEvent('post_comment', {
+      article_slug: article.slug,
+      comment_length: newComment.content.length,
+    });
     setTimeout(() => setCommentSuccess(false), 4000);
   };
+
+  const defaultDisclaimer = "Nội dung trên Lumia nhằm mục đích cung cấp thông tin và kiến thức tham khảo, không thay thế cho chẩn đoán hoặc tư vấn y khoa từ bác sĩ/chuyên gia da liễu. Nếu bạn có vấn đề về da kéo dài hoặc nghiêm trọng, hãy tìm kiếm sự tư vấn từ chuyên gia y tế.";
 
   return (
     <div className="bg-[#FCFAF8] min-h-screen py-8 sm:py-12">
@@ -66,12 +80,12 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
       {copiedToast && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#341F1A] text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-medium animate-in fade-in slide-in-from-bottom-3">
           <Check className="w-4 h-4 text-[#7BBA89]" />
-          <span>Đã sao chép liên kết bài viết vào bộ nhớ tạm!</span>
+          <span>Đã sao chép liên kết URL ({article.slug}) vào bộ nhớ tạm!</span>
         </div>
       )}
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb Navigation */}
+        {/* Breadcrumb Navigation with Slug URL indication */}
         <nav className="flex items-center gap-1.5 text-xs text-[#8C7672] mb-6 overflow-x-auto pb-1">
           <button 
             onClick={() => onNavigate?.('home')} 
@@ -98,8 +112,13 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
 
         {/* Article Header */}
         <header className="space-y-4 mb-8">
-          <div className="inline-block px-3 py-1 rounded-full bg-[#F5E6E1] text-[#733F36] text-xs font-semibold uppercase tracking-wider">
-            {article.categoryName}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-block px-3 py-1 rounded-full bg-[#F5E6E1] text-[#733F36] text-xs font-semibold uppercase tracking-wider">
+              {article.categoryName}
+            </div>
+            <span className="text-[11px] font-semibold text-[#824E46] bg-[#FCEBE7] px-2.5 py-0.5 rounded-full border border-[#EACEC8]">
+              Dữ liệu bài viết mẫu
+            </span>
           </div>
 
           <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#341F1A] leading-tight">
@@ -109,6 +128,31 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
           <p className="text-base sm:text-lg text-[#6E5853] leading-relaxed font-normal">
             {article.excerpt}
           </p>
+
+          {/* Target Skin Types & Concerns Tags */}
+          <div className="flex flex-wrap items-center gap-3 pt-2 text-xs">
+            {article.targetSkinTypes && article.targetSkinTypes.length > 0 && (
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[#7A635E] font-medium">Phù hợp loại da:</span>
+                {article.targetSkinTypes.map((st, i) => (
+                  <span key={i} className="px-2.5 py-0.5 rounded-full bg-[#FAF0EB] text-[#78463E] font-semibold text-[11px]">
+                    {st}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {article.skinConcerns && article.skinConcerns.length > 0 && (
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[#7A635E] font-medium">Vấn đề giải quyết:</span>
+                {article.skinConcerns.map((sc, i) => (
+                  <span key={i} className="px-2.5 py-0.5 rounded-full bg-[#EAF2ED] text-[#29683F] font-semibold text-[11px]">
+                    {sc}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Author & Meta Row */}
           <div className="pt-4 border-y border-[#F0E4DF] flex flex-wrap items-center justify-between gap-4 py-3.5">
@@ -132,9 +176,8 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
                 {article.readTime}
               </span>
               <span>•</span>
-              <span className="flex items-center gap-1">
-                <Eye className="w-3.5 h-3.5" />
-                {article.views}
+              <span className="flex items-center gap-1 text-[#8C5248] font-mono text-[11px]">
+                Slug: /{article.slug}
               </span>
             </div>
           </div>
@@ -145,8 +188,29 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
           <img
             src={article.coverImage}
             alt={article.title}
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.triedFallback) {
+                target.dataset.triedFallback = 'true';
+                target.src = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=85';
+              }
+            }}
             className="w-full h-full object-cover"
           />
+        </div>
+
+        {/* Mandatory Medical Disclaimer (Top Warning) */}
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-[#FFF9F2] border border-[#F3DFC8] flex items-start gap-3.5 text-xs sm:text-sm text-[#784A22] shadow-xs">
+          <AlertTriangle className="w-5 h-5 text-[#D97706] shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <span className="font-bold uppercase tracking-wider text-[#A05307] block text-xs">
+              Tuyên bố miễn trừ y khoa (Medical Disclaimer)
+            </span>
+            <p className="leading-relaxed text-xs sm:text-sm text-[#784A22]">
+              {article.medicalDisclaimer || defaultDisclaimer}
+            </p>
+          </div>
         </div>
 
         {/* Key Takeaways Callout Box */}
@@ -154,7 +218,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
           <div className="bg-[#FAF3F0] rounded-2xl p-6 mb-8 border border-[#ECD7CE]">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8A4A3F] mb-3">
               <Sparkles className="w-4 h-4 text-[#B86B62]" />
-              <span>Điểm nhấn quan trọng từ Lumia</span>
+              <span>Điểm nhấn khoa học quan trọng</span>
             </div>
             <ul className="space-y-2 text-sm text-[#5C4540]">
               {article.keyTakeaways.map((item, i) => (
@@ -188,6 +252,48 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
             </div>
           )}
         </article>
+
+        {/* References & Medical Citations Section */}
+        <section className="mt-10 p-5 sm:p-6 rounded-2xl bg-[#F8F5F2] border border-[#EBE3DE] space-y-3">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#633F38]">
+            <BookOpen className="w-4 h-4 text-[#A85B52]" />
+            <span>Nguồn tham khảo & Cơ sở y khoa (References)</span>
+          </div>
+          <p className="text-xs text-[#705954]">
+            Bài viết được đối chiếu và tổng hợp từ các tài liệu học thuật y khoa, viện da liễu và các ấn phẩm bình duyệt độc lập:
+          </p>
+          
+          <ul className="space-y-2 text-xs text-[#523A36] pt-1">
+            {article.references && article.references.length > 0 ? (
+              article.references.map((ref, idx) => (
+                <li key={idx} className="flex items-start gap-2 bg-white/70 p-2.5 rounded-xl border border-[#EDE2DC]">
+                  <span className="text-[#A85B52] font-mono font-bold shrink-0">[{idx + 1}]</span>
+                  <div className="flex-1">
+                    <span className="font-semibold text-[#341F1A]">{ref.title}</span>
+                    <div className="text-[11px] text-[#7A635E] mt-0.5">
+                      Nguồn: <span className="font-medium text-[#4D3632]">{ref.source}</span> {ref.year ? `(${ref.year})` : ''}
+                    </div>
+                    {ref.url && (
+                      <a 
+                        href={ref.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center gap-1 text-[11px] text-[#96554B] hover:underline mt-1"
+                      >
+                        <span>Xem tài liệu gốc</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li className="text-xs text-[#78615C] italic">
+                Tài liệu tham khảo chung: Hiệp hội Da liễu Hoa Kỳ (AAD), Tạp chí Da liễu Quốc tế và Thư viện Y học Quốc gia Hoa Kỳ (PubMed/NCBI).
+              </li>
+            )}
+          </ul>
+        </section>
 
         {/* Tags */}
         <div className="pt-8 mt-8 border-t border-[#F0E4DF] flex flex-wrap items-center gap-2">
@@ -225,12 +331,12 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold text-[#5C4540] bg-white border border-[#E8D4CD] hover:bg-[#F9ECE7] transition-all"
             >
               <Share2 className="w-4 h-4 text-[#8C5E58]" />
-              <span>Chia sẻ</span>
+              <span>Chia sẻ URL</span>
             </button>
           </div>
 
           <div className="text-xs text-[#8C7672] hidden sm:block">
-            Bản quyền thuộc về Lumia © 2026
+            Bản quyền kiến thức thuộc về Lumia © 2026
           </div>
         </div>
 
@@ -305,7 +411,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
 
             {commentSuccess && (
               <p className="text-xs text-[#2E6B43] bg-[#EAF5EE] p-2 rounded-lg text-center animate-in fade-in">
-                Cảm ơn bạn! Bình luận của bạn đã được đăng tải thành công.
+                Cảm ơn bạn! Bình luận của bạn đã được đăng tải thành công (Dữ liệu mẫu phản hồi tức thì).
               </p>
             )}
           </form>

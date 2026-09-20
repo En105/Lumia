@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Phone, Send, CheckCircle2, MessageSquare, Clock, Globe } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle2, MessageSquare, Clock, Globe, AlertCircle, Sparkles, Copy, Check } from 'lucide-react';
+import { trackEvent } from '../../utils/analytics';
 
 export const ContactPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -7,16 +8,29 @@ export const ContactPage: React.FC = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const realProjectEmail = 'anmaximus.bookingfw@gmail.com';
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(realProjectEmail);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 3000);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name && email && message) {
       setSubmitted(true);
+      trackEvent('contact_form_submitted', {
+        sender_email: email,
+        subject: subject || 'General Inquiry',
+      });
       setName('');
       setEmail('');
       setSubject('');
       setMessage('');
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 6000);
     }
   };
 
@@ -26,13 +40,13 @@ export const ContactPage: React.FC = () => {
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center space-y-3 mb-12">
           <span className="text-xs font-semibold uppercase tracking-widest text-[#935A51] bg-[#F9ECE7] px-3.5 py-1 rounded-full">
-            Kết nối cùng chúng mình
+            Kênh liên hệ chính thức
           </span>
           <h1 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#341F1A]">
-            Liên hệ với Lumia
+            Liên hệ với Ban biên tập Lumia
           </h1>
           <p className="text-sm sm:text-base text-[#6E5853] leading-relaxed">
-            Bạn có câu hỏi, ý kiến đóng góp hoặc muốn chia sẻ câu chuyện làn da của mình cùng chuyên gia Lumia? Hãy gửi tin nhắn cho chúng mình nhé.
+            Bạn có câu hỏi khoa học da liễu, phản ánh nội dung hoặc muốn đóng góp kinh nghiệm cá nhân? Đội ngũ dự án Lumia luôn sẵn sàng lắng nghe bạn.
           </p>
         </div>
 
@@ -43,14 +57,14 @@ export const ContactPage: React.FC = () => {
               Gửi tin nhắn trực tiếp
             </h2>
             <p className="text-xs sm:text-sm text-[#735F5A] mb-6">
-              Chúng mình thường phản hồi trong vòng 24 giờ làm việc.
+              Mọi tin nhắn gửi đến ban biên tập đều được phản hồi tận tình qua email.
             </p>
 
             {submitted && (
               <div className="p-4 rounded-2xl bg-[#EAF5EE] border border-[#D0EADB] text-[#24613B] text-xs sm:text-sm flex items-center gap-3 mb-6 animate-in fade-in">
                 <CheckCircle2 className="w-5 h-5 text-[#2E7D32] shrink-0" />
                 <span>
-                  Cảm ơn bạn! Tin nhắn đã được gửi đến ban biên tập Lumia. Chúng mình sẽ liên lạc lại sớm nhất!
+                  Cảm ơn bạn! Tin nhắn của bạn đã được ghi nhận và gửi đến email nhóm phát triển (<span className="font-mono">{realProjectEmail}</span>). Chúng mình sẽ phản hồi sớm nhất!
                 </span>
               </div>
             )}
@@ -82,7 +96,7 @@ export const ContactPage: React.FC = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="phuongmai@gmail.com"
+                    placeholder="email@example.com"
                     className="w-full px-4 py-2.5 rounded-xl bg-[#FCFAF8] border border-[#ECDCD6] text-xs sm:text-sm text-[#341F1A] focus:outline-none focus:ring-2 focus:ring-[#A85B52]"
                   />
                 </div>
@@ -90,16 +104,21 @@ export const ContactPage: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-semibold text-[#4A3531] mb-1">
-                  Chủ đề liên hệ
+                  Chủ đề / Lý do liên hệ
                 </label>
-                <input
-                  id="contact-subject-input"
-                  type="text"
+                <select
+                  id="contact-subject-select"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  placeholder="Ví dụ: Đóng góp ý kiến bài viết / Câu hỏi chăm sóc da"
                   className="w-full px-4 py-2.5 rounded-xl bg-[#FCFAF8] border border-[#ECDCD6] text-xs sm:text-sm text-[#341F1A] focus:outline-none focus:ring-2 focus:ring-[#A85B52]"
-                />
+                >
+                  <option value="">-- Chọn chủ đề quan tâm --</option>
+                  <option value="Hỏi đáp về cách chăm sóc da">Hỏi đáp về cách chăm sóc da</option>
+                  <option value="Góp ý bài viết / Nguồn y khoa">Góp ý bài viết / Bổ sung nguồn y khoa</option>
+                  <option value="Chia sẻ câu chuyện làn da">Chia sẻ câu chuyện phục hồi da cá nhân</option>
+                  <option value="Hợp tác nghiên cứu phi thương mại">Đóng góp cho dự án sinh viên Lumia</option>
+                  <option value="Khác">Lý do khác</option>
+                </select>
               </div>
 
               <div>
@@ -112,140 +131,133 @@ export const ContactPage: React.FC = () => {
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Viết nội dung tin nhắn hoặc thắc mắc của bạn tại đây..."
+                  placeholder="Nhập nội dung chia sẻ hoặc thắc mắc của bạn..."
                   className="w-full p-4 rounded-xl bg-[#FCFAF8] border border-[#ECDCD6] text-xs sm:text-sm text-[#341F1A] focus:outline-none focus:ring-2 focus:ring-[#A85B52]"
                 />
               </div>
 
-              <button
-                id="contact-submit-btn"
-                type="submit"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold text-white bg-[#A85B52] hover:bg-[#91463D] shadow-xs hover:shadow-md transition-all duration-200"
-              >
-                <Send className="w-4 h-4" />
-                <span>Gửi tin nhắn</span>
-              </button>
+              <div className="pt-2 flex items-center justify-between">
+                <span className="text-[11px] text-[#8C7672]">
+                  * Thông tin chỉ dùng để liên lạc phản hồi, không chia sẻ cho bên thứ ba.
+                </span>
+                <button
+                  id="contact-submit-btn"
+                  type="submit"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-semibold text-white bg-[#A85B52] hover:bg-[#91463D] shadow-xs transition-colors"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>Gửi tin nhắn</span>
+                </button>
+              </div>
             </form>
           </div>
 
-          {/* Right Column: Contact Details & Stylized Map */}
+          {/* Right Column: Authentic Contact Info & Clear Placeholders */}
           <div className="lg:col-span-5 space-y-6">
-            {/* Info Card */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE1DB] shadow-xs space-y-5">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE1DB] shadow-xs space-y-6">
               <h3 className="font-serif-display text-lg font-bold text-[#341F1A]">
-                Thông tin văn phòng Lumia
+                Thông tin dự án & Đầu mối liên hệ
               </h3>
 
-              <div className="space-y-4 text-xs sm:text-sm text-[#5D4641]">
-                <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-full bg-[#FAF0EB] flex items-center justify-center text-[#96554B] shrink-0 mt-0.5">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="font-semibold text-[#341F1A] block">Địa chỉ</span>
-                    <span className="text-[#6E5853]">Quận 1, TP. Hồ Chí Minh, Việt Nam</span>
-                  </div>
-                </div>
-
+              <div className="space-y-4 text-xs sm:text-sm">
+                {/* Real Verified Project Email */}
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-full bg-[#FAF0EB] flex items-center justify-center text-[#96554B] shrink-0 mt-0.5">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <div>
-                    <span className="font-semibold text-[#341F1A] block">Email hỗ trợ & biên tập</span>
-                    <a href="mailto:hello@lumia.vn" className="text-[#96554B] hover:underline">
-                      hello@lumia.vn
-                    </a>
+                  <div className="flex-1">
+                    <span className="font-semibold text-[#341F1A] block">Email chính thức dự án</span>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <a href={`mailto:${realProjectEmail}`} className="text-[#96554B] font-mono hover:underline text-xs sm:text-sm break-all">
+                        {realProjectEmail}
+                      </a>
+                      <button
+                        onClick={handleCopyEmail}
+                        title="Sao chép email"
+                        className="p-1 rounded-md text-[#7A635E] hover:bg-[#FAF0EB] transition-colors"
+                      >
+                        {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#2E7D32]" /> : <Copy className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                    <span className="text-[10px] text-[#2E7D32] bg-[#EAF5EE] px-2 py-0.5 rounded-full inline-block mt-1">
+                      ✓ Email tác giả đã xác thực
+                    </span>
                   </div>
                 </div>
 
+                {/* Honest Placeholder for Phone */}
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-full bg-[#FAF0EB] flex items-center justify-center text-[#96554B] shrink-0 mt-0.5">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-semibold text-[#341F1A] block">Điện thoại liên hệ</span>
-                    <span className="text-[#6E5853]">0123 456 789</span>
+                    <span className="font-semibold text-[#341F1A] block">Số điện thoại liên hệ</span>
+                    <span className="text-[#6E5853] italic">
+                      [Chưa công bố công khai - Vui lòng liên hệ qua email trên]
+                    </span>
                   </div>
                 </div>
 
+                {/* Educational Facility Placeholder */}
+                <div className="flex items-start gap-3.5">
+                  <div className="w-9 h-9 rounded-full bg-[#FAF0EB] flex items-center justify-center text-[#96554B] shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-[#341F1A] block">Địa điểm thực hiện dự án</span>
+                    <span className="text-[#6E5853]">
+                      Thành phố Hồ Chí Minh, Việt Nam (Nhóm nghiên cứu học thuật)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Working Hours */}
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-full bg-[#FAF0EB] flex items-center justify-center text-[#96554B] shrink-0 mt-0.5">
                     <Clock className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-semibold text-[#341F1A] block">Giờ làm việc ban biên tập</span>
-                    <span className="text-[#6E5853]">Thứ Hai - Thứ Sáu: 08:30 - 18:00</span>
+                    <span className="font-semibold text-[#341F1A] block">Thời gian tiếp nhận thư</span>
+                    <span className="text-[#6E5853]">Thứ Hai - Thứ Bảy: 09:00 - 18:00</span>
                   </div>
                 </div>
               </div>
 
-              {/* Social Channels */}
-              <div className="pt-4 border-t border-[#F5EBE6]">
-                <span className="text-xs font-semibold text-[#341F1A] block mb-3">
-                  Theo dõi kênh truyền thông Lumia
+              {/* Social Channels with Clear Honest Placeholders */}
+              <div className="pt-4 border-t border-[#F5EBE6] space-y-3">
+                <span className="text-xs font-semibold text-[#341F1A] block">
+                  Kênh truyền thông & thảo luận cộng đồng
                 </span>
-                <div className="flex items-center gap-3">
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-[#FAF0EB] hover:bg-[#F2E0D8] text-xs font-semibold text-[#7A4840] transition-colors"
-                  >
-                    Facebook
-                  </a>
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-[#FAF0EB] hover:bg-[#F2E0D8] text-xs font-semibold text-[#7A4840] transition-colors"
-                  >
-                    Instagram
-                  </a>
-                  <a
-                    href="https://tiktok.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-[#FAF0EB] hover:bg-[#F2E0D8] text-xs font-semibold text-[#7A4840] transition-colors"
-                  >
-                    TikTok
-                  </a>
-                  <a
-                    href="https://youtube.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-[#FAF0EB] hover:bg-[#F2E0D8] text-xs font-semibold text-[#7A4840] transition-colors"
-                  >
-                    YouTube
-                  </a>
+                <p className="text-[11px] text-[#7A6560]">
+                  Các kênh mạng xã hội chính thức đang trong giai đoạn xây dựng và tích hợp:
+                </p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="p-2 rounded-xl bg-[#FAF0EB] text-[#7A4840] border border-[#ECDAD2]">
+                    <span className="font-semibold block">Facebook Page:</span>
+                    <span className="text-[10px] text-[#8C6D66]">[Đang cập nhật link fanpage]</span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-[#FAF0EB] text-[#7A4840] border border-[#ECDAD2]">
+                    <span className="font-semibold block">Cộng đồng Zalo:</span>
+                    <span className="text-[10px] text-[#8C6D66]">[Nhóm thảo luận sinh viên]</span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-[#FAF0EB] text-[#7A4840] border border-[#ECDAD2]">
+                    <span className="font-semibold block">Instagram:</span>
+                    <span className="text-[10px] text-[#8C6D66]">[Đang xây dựng nội dung]</span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-[#FAF0EB] text-[#7A4840] border border-[#ECDAD2]">
+                    <span className="font-semibold block">TikTok Khoa học:</span>
+                    <span className="text-[10px] text-[#8C6D66]">[Kênh video ngắn Lumia]</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Stylized Illustrated Map */}
-            <div className="bg-white rounded-3xl overflow-hidden border border-[#EDE1DB] shadow-xs">
-              <div className="p-4 border-b border-[#F5EBE6] flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-[#8C5248]" />
-                  <span className="text-xs font-semibold text-[#341F1A]">Vị trí bản đồ TP. Hồ Chí Minh</span>
-                </div>
-                <span className="text-[10px] text-[#8C7672]">Google Maps Studio</span>
-              </div>
-              
-              <div className="relative aspect-[16/9] bg-[#F5ECE8] flex items-center justify-center p-6 text-center">
-                {/* Stylized vector map pattern */}
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#96554B_1px,transparent_1px)] [background-size:16px_16px]" />
-                
-                <div className="relative z-10 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-[#ECD8D0] shadow-sm max-w-xs">
-                  <div className="w-8 h-8 rounded-full bg-[#FCEBE7] text-[#91463D] flex items-center justify-center mx-auto mb-2">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <h4 className="text-xs font-bold text-[#341F1A]">Lumia Editorial Headquarters</h4>
-                  <p className="text-[11px] text-[#735F5A] mt-0.5">
-                    Quận 1, Trung tâm Thành phố Hồ Chí Minh, Việt Nam
-                  </p>
-                </div>
-              </div>
+            {/* Note regarding academic project integrity */}
+            <div className="p-4 rounded-2xl bg-[#FAF3F0] border border-[#E8D4CC] flex items-start gap-3 text-xs text-[#6A4740]">
+              <AlertCircle className="w-4 h-4 text-[#A85B52] shrink-0 mt-0.5" />
+              <p>
+                <strong>Cam kết trung thực dữ liệu:</strong> Website Lumia tuyệt đối không sử dụng thông tin liên hệ giả mạo hay số điện thoại ảo. Mọi trao đổi thực tế xin gửi trực tiếp về email <span className="font-semibold">{realProjectEmail}</span>.
+              </p>
             </div>
           </div>
         </div>

@@ -33,6 +33,14 @@ export const SkinTypeDetailModal: React.FC<SkinTypeDetailModalProps> = ({
           <img
             src={skinType.image}
             alt={skinType.vietnameseName}
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.triedFallback) {
+                target.dataset.triedFallback = 'true';
+                target.src = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80';
+              }
+            }}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />

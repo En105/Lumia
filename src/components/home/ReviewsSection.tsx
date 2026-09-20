@@ -57,6 +57,14 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
                   <img
                     src={product.image}
                     alt={product.name}
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.dataset.triedFallback) {
+                        target.dataset.triedFallback = 'true';
+                        target.src = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80';
+                      }
+                    }}
                     className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500 ease-out"
                     loading="lazy"
                   />
@@ -78,25 +86,13 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
                     {product.name}
                   </h3>
 
-                  {/* Rating Stars */}
+                  {/* Demo indicator & Scientific rating */}
                   <div className="flex items-center gap-1.5">
-                    <div className="flex items-center text-[#E5A83B]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-3.5 h-3.5 ${
-                            i < Math.floor(product.rating)
-                              ? 'fill-current text-[#E5A83B]'
-                              : 'text-gray-300'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-xs font-bold text-[#3E2723]">
-                      {product.rating}
+                    <span className="text-[10px] font-semibold text-[#8C5248] bg-[#FCEBE7] px-2 py-0.5 rounded-full border border-[#EED7D1]">
+                      Dữ liệu mẫu
                     </span>
-                    <span className="text-[11px] text-[#8C7672]">
-                      ({product.reviewCount} đánh giá)
+                    <span className="text-[11px] text-[#735F5A]">
+                      Phân tích thành phần
                     </span>
                   </div>
 
@@ -128,7 +124,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
               {/* Action */}
               <div className="p-5 pt-0">
                 <div className="pt-3 border-t border-[#F2E7E2] flex items-center justify-between text-xs font-semibold text-[#8C5248] group-hover:text-[#63332B]">
-                  <span>Xem đánh giá chi tiết</span>
+                  <span>Xem phân tích hoạt chất</span>
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -143,7 +139,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
             onClick={onViewAllReviews}
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold text-[#5B3731] bg-[#F5E6E1] hover:bg-[#EED9D3] transition-colors shadow-xs"
           >
-            <span>Xem thêm review</span>
+            <span>Xem thư viện phân tích mỹ phẩm</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
