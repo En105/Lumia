@@ -24,7 +24,6 @@ export interface ReferenceItem {
   title: string;
   source: string;
   year?: string;
-  url?: string;
 }
 
 export interface Author {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ArrowLeft, Clock, Eye, Heart, Share2, MessageSquare, Check, 
-  Bookmark, Sparkles, Send, Quote, ChevronRight, AlertTriangle, BookOpen, ExternalLink, ShieldCheck 
+  Bookmark, Sparkles, Send, Quote, ChevronRight, AlertTriangle, BookOpen, ShieldCheck 
 } from 'lucide-react';
 import { Article, Comment, NavPage } from '../../types';
 import { trackEvent } from '../../utils/analytics';
@@ -271,19 +271,9 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
                   <div className="flex-1">
                     <span className="font-semibold text-[#341F1A]">{ref.title}</span>
                     <div className="text-[11px] text-[#7A635E] mt-0.5">
-                      Nguồn: <span className="font-medium text-[#4D3632]">{ref.source}</span> {ref.year ? `(${ref.year})` : ''}
+                      Nguồn: <span className="font-medium text-[#4D3632]">{ref.source}</span>
+                      {ref.year && <span> • Năm {ref.year}</span>}
                     </div>
-                    {ref.url && (
-                      <a 
-                        href={ref.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="inline-flex items-center gap-1 text-[11px] text-[#96554B] hover:underline mt-1"
-                      >
-                        <span>Xem tài liệu gốc</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
                   </div>
                 </li>
               ))

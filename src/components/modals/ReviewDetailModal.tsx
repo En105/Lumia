@@ -190,12 +190,16 @@ export const ReviewDetailModal: React.FC<ReviewDetailModalProps> = ({ product, o
               <div className="pt-2 border-t border-[#F2E5DF] text-xs text-[#7A645E]">
                 <span className="font-semibold text-[#341F1A] flex items-center gap-1 mb-1">
                   <BookOpen className="w-3.5 h-3.5 text-[#A85B52]" />
-                  Tài liệu nghiên cứu thành phần:
+                  Tài liệu nghiên cứu thành phần (Nguồn tham khảo):
                 </span>
-                <ul className="space-y-1">
+                <ul className="space-y-1.5">
                   {product.references.map((ref, idx) => (
-                    <li key={idx} className="text-[11px]">
-                      • {ref.title} — <span className="font-medium">{ref.source}</span> ({ref.year})
+                    <li key={idx} className="text-[11px] bg-white/60 p-2 rounded-lg border border-[#EDE2DC]">
+                      <span className="font-medium text-[#341F1A]">{ref.title}</span>
+                      <div className="text-[10px] text-[#7A635E] mt-0.5">
+                        Nguồn: <span className="font-medium text-[#4D3632]">{ref.source}</span>
+                        {ref.year && <span> • Năm {ref.year}</span>}
+                      </div>
                     </li>
                   ))}
                 </ul>

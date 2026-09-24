@@ -169,8 +169,7 @@ export const mockArticles: Article[] = [
       {
         title: 'Skin Care Basics & Dermatologist Recommended Daily Routines',
         source: 'American Academy of Dermatology (AAD)',
-        year: '2024',
-        url: 'https://www.aad.org/public/everyday-care/skin-care-basics'
+        year: '2024'
       },
       {
         title: 'The role of moisturization in epidermal barrier function',
@@ -248,8 +247,7 @@ export const mockArticles: Article[] = [
       {
         title: 'Nicotinamide: Mechanisms of action and its topical use in dermatology',
         source: 'PubMed / National Center for Biotechnology Information (PMC6786012)',
-        year: '2019',
-        url: 'https://pubmed.ncbi.nlm.nih.gov/17147561/'
+        year: '2019'
       },
       {
         title: 'Topical niacinamide reduces yellowing, wrinkling, red blotchiness, and hyperpigmented spots in aging facial skin',
@@ -315,8 +313,7 @@ export const mockArticles: Article[] = [
       {
         title: 'Ultraviolet Radiation and Global Sun Protection Standards',
         source: 'World Health Organization (WHO)',
-        year: '2023',
-        url: 'https://www.who.int/news-room/fact-sheets/detail/ultraviolet-radiation'
+        year: '2023'
       },
       {
         title: 'How to decode sunscreen labels: Broad spectrum, SPF, and Water resistance',
@@ -382,8 +379,7 @@ export const mockArticles: Article[] = [
       {
         title: 'The Baumann Skin Typing System: A validated questionnaire',
         source: 'Journal of Cosmetic Dermatology',
-        year: '2021',
-        url: 'https://pubmed.ncbi.nlm.nih.gov/18318884/'
+        year: '2021'
       },
       {
         title: 'Skin type evaluation: sebum secretion and barrier integrity',
@@ -440,8 +436,7 @@ export const mockArticles: Article[] = [
       {
         title: 'Skin Barrier Function and the Role of Physiological Lipid Replacement Therapy',
         source: 'PubMed / National Center for Biotechnology Information (PMC5605215)',
-        year: '2020',
-        url: 'https://pubmed.ncbi.nlm.nih.gov/24719068/'
+        year: '2020'
       },
       {
         title: 'Stratum Corneum Lipids: The Essential Chemistry of Skin Barrier Protection',
@@ -530,8 +525,7 @@ export const mockArticles: Article[] = [
       {
         title: 'Retinoids in the treatment of skin aging: an overview of clinical efficacy and safety',
         source: 'Clinical Interventions in Aging (PubMed Central)',
-        year: '2021',
-        url: 'https://pubmed.ncbi.nlm.nih.gov/17253549/'
+        year: '2021'
       },
       {
         title: 'Salicylic acid as a peeling agent: a comprehensive chemical review',
@@ -571,8 +565,7 @@ export const mockArticles: Article[] = [
       {
         title: 'The Gut-Skin Axis: The Importance of Microbiota in Dermatology',
         source: 'Microorganisms Journal (PubMed)',
-        year: '2023',
-        url: 'https://pubmed.ncbi.nlm.nih.gov/34360341/'
+        year: '2023'
       },
       {
         title: 'Dietary intake, advanced glycation end-products, and skin elasticity',
