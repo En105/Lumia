@@ -49,12 +49,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreateDiscussi
             <div className="pt-2 text-xs text-[#A89691] space-y-2">
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#E5A89E] shrink-0" />
-                <span>TP. Hồ Chí Minh, Việt Nam</span>
+                <span>Hà Nội, Việt Nam</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#E5A89E] shrink-0" />
-                <a href="mailto:lumia.beauty.project@gmail.com" className="hover:text-white transition-colors underline">
-                  lumia.beauty.project@gmail.com
+                <a href="mailto:lumia.beauty@gmail.com" className="hover:text-white transition-colors underline">
+                  lumia.beauty@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-2">

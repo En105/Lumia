@@ -10,7 +10,7 @@ export const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const realProjectEmail = 'anmaximus.bookingfw@gmail.com';
+  const realProjectEmail = 'lumia.beauty@gmail.com';
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(realProjectEmail);
@@ -206,7 +206,7 @@ export const ContactPage: React.FC = () => {
                   <div>
                     <span className="font-semibold text-[#341F1A] block">Địa điểm thực hiện dự án</span>
                     <span className="text-[#6E5853]">
-                      Thành phố Hồ Chí Minh, Việt Nam (Nhóm nghiên cứu học thuật)
+                      Thành phố Hà Nội, Việt Nam (Nhóm nghiên cứu học thuật)
                     </span>
                   </div>
                 </div>

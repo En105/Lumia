@@ -98,7 +98,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
             </p>
             <div className="p-4 rounded-2xl bg-[#FCFAF8] border border-[#ECDCD6] text-xs sm:text-sm text-[#4A3531]">
               <p>• <strong>Dự án:</strong> Nghiên cứu & Xây dựng Website Cộng đồng Mỹ phẩm Lumia</p>
-              <p>• <strong>Email phụ trách:</strong> <span className="font-mono text-[#96554B]">anmaximus.bookingfw@gmail.com</span></p>
+              <p>• <strong>Email phụ trách:</strong> <span className="font-mono text-[#96554B]">lumia.beauty@gmail.com</span></p>
               <p>• <strong>Phản hồi:</strong> Trong vòng 24 - 48 giờ làm việc kể từ khi tiếp nhận yêu cầu.</p>
             </div>
           </section>

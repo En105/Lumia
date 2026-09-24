@@ -123,7 +123,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                     Nhóm sinh viên nghiên cứu & Phát triển nội dung truyền thông y tế
                   </p>
                   <p className="text-[11px] text-[#7A635E] mt-0.5">
-                    Email đại diện: anmaximus.bookingfw@gmail.com
+                    Email đại diện: lumia.beauty@gmail.com
                   </p>
                 </div>
               </div>
